@@ -1,0 +1,29 @@
+[
+  {
+    "id": "defi-101",
+    "title": "Introduction to DeFi",
+    "description": "Build a DeFi foundation with yield farming, AMMs, and staking basics.",
+    "priceYd": "800",
+    "authorAddress": "0x1234...ABCD",
+    "owned": true,
+    "progress": 72
+  },
+  {
+    "id": "solidity-core",
+    "title": "Solidity Smart Contracts",
+    "description": "Learn secure contract patterns and gas optimization.",
+    "priceYd": "500",
+    "authorAddress": "0x5678...EFGH",
+    "owned": false,
+    "progress": 0
+  },
+  {
+    "id": "nft-market",
+    "title": "NFT Marketplace Architecture",
+    "description": "Design ERC-721 marketplaces with auctions and royalties.",
+    "priceYd": "1200",
+    "authorAddress": "0x90AB...CDEF",
+    "owned": true,
+    "progress": 40
+  }
+]
