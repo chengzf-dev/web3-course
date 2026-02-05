@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web3 Contracts"
+  short_description: "Implement YD token, course purchase, and swap contracts."
+  default_prompt: "Implement Solidity contracts for YD token, course purchase, ownership mapping, and swap."

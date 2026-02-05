@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web3 Backend"
+  short_description: "Design NestJS APIs and Prisma schema for Web3 University."
+  default_prompt: "Design backend APIs and data models for course purchase with onchain ownership checks."

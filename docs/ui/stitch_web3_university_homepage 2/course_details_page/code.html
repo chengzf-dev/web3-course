@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Course Details - Web3 University</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "primary-hover": "#0fb662",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102219",
+                        "surface-dark": "#162e24",
+                        "border-dark": "#234836",
+                        "text-muted": "#92c9ad",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased selection:bg-primary selection:text-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navbar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 sm:px-10 py-3">
+<div class="flex items-center gap-4 sm:gap-8">
+<a class="flex items-center gap-3 text-slate-900 dark:text-white" href="#">
+<div class="size-8 text-primary">
+<svg class="h-full w-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="hidden sm:block text-lg font-bold leading-tight tracking-[-0.015em]">Web3 University</h2>
+</a>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-gray-200 dark:border-border-dark bg-white dark:bg-surface-dark transition-colors focus-within:border-primary">
+<div class="text-slate-400 dark:text-text-muted flex items-center justify-center pl-4">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg focus:outline-0 focus:ring-0 border-none bg-transparent h-full placeholder:text-slate-400 dark:placeholder:text-text-muted px-3 text-base font-normal leading-normal text-slate-900 dark:text-white" placeholder="Search courses..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4 sm:gap-8">
+<nav class="hidden lg:flex items-center gap-6 xl:gap-9">
+<a class="text-slate-600 dark:text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Courses</a>
+<a class="text-slate-600 dark:text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Create</a>
+<a class="text-slate-600 dark:text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Community</a>
+</nav>
+<button class="flex items-center gap-2 cursor-pointer overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-primary-hover transition-colors text-background-dark text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+<span class="truncate hidden sm:inline">0x84...2A</span>
+</button>
+<div class="lg:hidden">
+<span class="material-symbols-outlined text-white cursor-pointer">menu</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="layout-container flex grow flex-col py-8 px-4 sm:px-6 lg:px-8 xl:px-40">
+<div class="max-w-7xl mx-auto w-full">
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+<!-- Left Column: Content -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Breadcrumb & Header -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-2 text-sm text-text-muted">
+<a class="hover:text-primary" href="#">Courses</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<a class="hover:text-primary" href="#">DeFi</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-white">Staking &amp; Yield Farming</span>
+</div>
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em] text-slate-900 dark:text-white">
+                                Introduction to DeFi: Staking &amp; Yield Farming
+                            </h1>
+<p class="text-slate-600 dark:text-text-muted text-lg font-normal leading-relaxed max-w-2xl">
+                                Master the fundamentals of decentralized finance, from setting up your wallet to advanced yield farming strategies in this comprehensive Web3 course.
+                            </p>
+<!-- Author Mini Profile -->
+<div class="flex items-center gap-3 pt-2">
+<div class="relative">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12 border-2 border-primary" data-alt="Profile picture of instructor Satoshi_Teach" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuApKzU75tr8d3TyNICFn35lkUwqAhWNbxbr5T7POz6SEY1bcE-qX9YdHhFBQU_AKan3dU9W2dE-FdwXeKmDgElLbjyh0ro9sFCTrzgOZIyispoiKmIQ5da6YcHnUPQMTuneTui4IATZ72oNF_UvNdfyYm9TUZ9-qM1nE9t87Fvq0OJ2o6GvfWoqNK0z39dLorJjn-RaqfpVlpvSKAZ2jYZo85ghL91r7XdJBZ0aLi15DTfFKHvGX9C-MLd5aDc6X5Q204jLlj-HyF8L");'>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-blue-500 rounded-full p-[2px] border border-background-dark">
+<span class="material-symbols-outlined text-[12px] text-white font-bold block">verified</span>
+</div>
+</div>
+<div class="flex flex-col">
+<p class="text-slate-900 dark:text-white text-sm font-bold">Satoshi_Teach</p>
+<p class="text-slate-500 dark:text-text-muted text-xs">Senior Blockchain Dev</p>
+</div>
+<div class="h-8 w-[1px] bg-border-dark mx-2"></div>
+<div class="flex items-center gap-1 text-yellow-400">
+<span class="material-symbols-outlined text-[18px] fill-current">star</span>
+<span class="text-slate-900 dark:text-white text-sm font-bold">4.9</span>
+<span class="text-slate-500 dark:text-text-muted text-xs">(1,240 reviews)</span>
+</div>
+</div>
+</div>
+<!-- Video Player -->
+<div class="relative group rounded-xl overflow-hidden aspect-video bg-surface-dark border border-border-dark shadow-2xl">
+<div class="absolute inset-0 bg-center bg-cover opacity-60 group-hover:opacity-70 transition-opacity" data-alt="Abstract digital blockchain network visualization in green and black" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdbnVSww1yQS8Pqj3dOq6AKShclLNucqQAwsgQsRAJ_vQGDEX5Pa0RBs5mAOLZJQzYGq6k2jUR72I6Hpt6XQXVRUO4DlScs3a9YhXsHBRkrH-ua7bzmSwDYj1LNx76f_1fHYkIUFsifFVASilc7kj16D_airmAazAOFDiUpto2TtkRee5J79NAtLKtjqwWjZWwqbn3mNJFanGOAU_oouZHv5JpUqPdT1beXeiP5pi9FlV8AIY0DqmnN5cgKbFuRuTG2zd8Y1eiG3_7");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent"></div>
+<!-- Play Button -->
+<button class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full size-20 bg-primary/90 text-background-dark hover:bg-primary hover:scale-110 transition-all shadow-[0_0_40px_rgba(19,236,128,0.4)]">
+<span class="material-symbols-outlined text-[48px] fill-current pl-2">play_arrow</span>
+</button>
+<!-- Player Controls Overlay -->
+<div class="absolute inset-x-0 bottom-0 px-6 py-4">
+<div class="flex h-1 items-center bg-white/20 rounded-full mb-4 cursor-pointer group/progress">
+<div class="h-full w-1/4 bg-primary rounded-full relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 size-3 bg-white rounded-full opacity-0 group-hover/progress:opacity-100 transition-opacity shadow-lg"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-white cursor-pointer hover:text-primary">play_arrow</span>
+<span class="material-symbols-outlined text-white cursor-pointer hover:text-primary">volume_up</span>
+<p class="text-white text-xs font-medium tracking-wide">0:37 / 2:23</p>
+</div>
+<span class="material-symbols-outlined text-white cursor-pointer hover:text-primary">fullscreen</span>
+</div>
+</div>
+</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="flex flex-col gap-1 p-4 rounded-lg border border-border-dark bg-surface-dark/50">
+<div class="flex items-center gap-2 text-text-muted mb-1">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="text-xs uppercase font-bold tracking-wider">Duration</span>
+</div>
+<p class="text-white text-lg font-bold">3.5 Hours</p>
+</div>
+<div class="flex flex-col gap-1 p-4 rounded-lg border border-border-dark bg-surface-dark/50">
+<div class="flex items-center gap-2 text-text-muted mb-1">
+<span class="material-symbols-outlined text-[20px]">signal_cellular_alt</span>
+<span class="text-xs uppercase font-bold tracking-wider">Level</span>
+</div>
+<p class="text-white text-lg font-bold">Intermediate</p>
+</div>
+<div class="flex flex-col gap-1 p-4 rounded-lg border border-border-dark bg-surface-dark/50">
+<div class="flex items-center gap-2 text-text-muted mb-1">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-xs uppercase font-bold tracking-wider">Students</span>
+</div>
+<p class="text-white text-lg font-bold">1,240</p>
+</div>
+<div class="flex flex-col gap-1 p-4 rounded-lg border border-border-dark bg-surface-dark/50">
+<div class="flex items-center gap-2 text-text-muted mb-1">
+<span class="material-symbols-outlined text-[20px]">update</span>
+<span class="text-xs uppercase font-bold tracking-wider">Updated</span>
+</div>
+<p class="text-white text-lg font-bold">Oct 2023</p>
+</div>
+</div>
+<!-- Tab Navigation -->
+<div class="border-b border-border-dark">
+<div class="flex gap-8 overflow-x-auto">
+<button class="px-1 py-4 text-primary border-b-2 border-primary font-bold text-sm">Overview</button>
+<button class="px-1 py-4 text-text-muted hover:text-white font-medium text-sm transition-colors">Curriculum</button>
+<button class="px-1 py-4 text-text-muted hover:text-white font-medium text-sm transition-colors">Instructor</button>
+<button class="px-1 py-4 text-text-muted hover:text-white font-medium text-sm transition-colors">Reviews</button>
+</div>
+</div>
+<!-- What you'll learn -->
+<div class="p-6 md:p-8 rounded-xl border border-border-dark bg-surface-dark/30">
+<h3 class="text-xl font-bold text-white mb-6">What you'll learn</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+<p class="text-slate-300 text-sm leading-relaxed">Setup and secure a Web3 wallet (MetaMask, Phantom) for DeFi interactions.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+<p class="text-slate-300 text-sm leading-relaxed">Understand the mechanics of Automated Market Makers (AMMs) and Liquidity Pools.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+<p class="text-slate-300 text-sm leading-relaxed">Execute token swaps and provide liquidity on Uniswap and Curve.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+<p class="text-slate-300 text-sm leading-relaxed">Calculate Impermanent Loss and assess risk before investing.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+<p class="text-slate-300 text-sm leading-relaxed">Master yield farming strategies to maximize APY returns.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+<p class="text-slate-300 text-sm leading-relaxed">Read and audit basic smart contracts for safety.</p>
+</div>
+</div>
+</div>
+<!-- Course Content (Accordion Style) -->
+<div>
+<h3 class="text-2xl font-bold text-white mb-6">Course Content</h3>
+<div class="flex flex-col border border-border-dark rounded-xl overflow-hidden divide-y divide-border-dark">
+<!-- Module 1 -->
+<div class="group bg-surface-dark">
+<summary class="flex cursor-pointer items-center justify-between p-4 md:px-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">expand_more</span>
+<h4 class="font-bold text-white text-base">Module 1: Wallet Setup &amp; Security</h4>
+</div>
+<span class="text-sm text-text-muted">3 Lectures • 15 min</span>
+</summary>
+<div class="px-6 pb-4 md:px-14 flex flex-col gap-3">
+<div class="flex items-center justify-between text-sm py-2 border-b border-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[18px]">play_circle</span>
+<span class="text-slate-300">Installing MetaMask</span>
+</div>
+<span class="text-text-muted text-xs">05:00</span>
+</div>
+<div class="flex items-center justify-between text-sm py-2 border-b border-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[18px]">play_circle</span>
+<span class="text-slate-300">Seed Phrase Management</span>
+</div>
+<span class="text-text-muted text-xs">07:30</span>
+</div>
+<div class="flex items-center justify-between text-sm py-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-muted text-[18px]">lock</span>
+<span class="text-slate-300">Connecting to Hardware Wallets</span>
+</div>
+<span class="text-text-muted text-xs">02:30</span>
+</div>
+</div>
+</div>
+<!-- Module 2 -->
+<div class="group bg-surface-dark/50">
+<div class="flex cursor-pointer items-center justify-between p-4 md:px-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-text-muted rotate-[-90deg]">expand_more</span>
+<h4 class="font-bold text-white text-base">Module 2: Understanding Liquidity Pools</h4>
+</div>
+<span class="text-sm text-text-muted">5 Lectures • 45 min</span>
+</div>
+</div>
+<!-- Module 3 -->
+<div class="group bg-surface-dark/50">
+<div class="flex cursor-pointer items-center justify-between p-4 md:px-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-text-muted rotate-[-90deg]">expand_more</span>
+<h4 class="font-bold text-white text-base">Module 3: Advanced Yield Strategies</h4>
+</div>
+<span class="text-sm text-text-muted">4 Lectures • 30 min</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Purchase Sidebar -->
+<div class="lg:col-span-4 relative">
+<div class="sticky top-24 flex flex-col gap-6">
+<!-- Main Purchase Card -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 shadow-2xl shadow-black/40">
+<div class="mb-6">
+<p class="text-text-muted text-sm font-medium mb-1">Total Price</p>
+<div class="flex items-baseline gap-2 flex-wrap">
+<span class="text-3xl font-black text-white tracking-tight">500 YD</span>
+<span class="text-lg text-text-muted font-normal">/</span>
+<span class="text-xl font-bold text-slate-300">0.05 ETH</span>
+</div>
+<p class="text-xs text-slate-500 mt-1">Approx. $85.40 USD</p>
+</div>
+<!-- Insufficient Funds Warning -->
+<div class="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-6 flex items-start gap-3">
+<span class="material-symbols-outlined text-red-400 text-[20px] mt-0.5">error</span>
+<div>
+<p class="text-red-200 text-sm font-bold">Insufficient YD Balance</p>
+<p class="text-red-200/70 text-xs mt-0.5 mb-2">You currently have 200 YD in your wallet.</p>
+<a class="text-xs font-bold text-primary hover:underline flex items-center gap-1" href="#">
+                                            Swap ETH for YD Coin <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="relative w-full py-3 px-4 bg-primary/20 text-primary-hover cursor-not-allowed rounded-lg font-bold text-base flex items-center justify-center gap-2 border border-primary/20 opacity-70" disabled="">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                                        Buy with YD Coin
+                                        <!-- Optional Lock Icon Overlay -->
+<div class="absolute right-4 top-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+</button>
+<button class="w-full py-3 px-4 bg-transparent border border-white/20 hover:border-white text-white rounded-lg font-bold text-base flex items-center justify-center gap-2 transition-all hover:bg-white/5">
+<span class="material-symbols-outlined">currency_bitcoin</span>
+                                        Buy with ETH
+                                    </button>
+</div>
+<div class="mt-6 flex flex-col gap-3">
+<div class="flex items-center justify-between text-sm text-slate-400">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+                                            Audited Contract
+                                        </span>
+<span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded border border-primary/20">Secure</span>
+</div>
+<div class="h-px bg-border-dark w-full my-1"></div>
+<p class="text-white font-bold text-sm mb-1">This course includes:</p>
+<ul class="flex flex-col gap-2">
+<li class="flex items-center gap-2 text-sm text-slate-300">
+<span class="material-symbols-outlined text-primary text-[16px]">all_inclusive</span>
+                                            Full lifetime access
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-slate-300">
+<span class="material-symbols-outlined text-primary text-[16px]">devices</span>
+                                            Access on mobile and desktop
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-slate-300">
+<span class="material-symbols-outlined text-primary text-[16px]">workspace_premium</span>
+                                            NFT Certificate of Completion
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-slate-300">
+<span class="material-symbols-outlined text-primary text-[16px]">forum</span>
+                                            Access to DAO community
+                                        </li>
+</ul>
+</div>
+</div>
+<!-- Referral / Share -->
+<div class="p-4 rounded-xl border border-border-dark bg-surface-dark/30 text-center">
+<p class="text-sm text-slate-300 mb-3">Earn <span class="text-primary font-bold">5% YD</span> for every referral.</p>
+<button class="w-full py-2 px-4 bg-white/5 hover:bg-white/10 text-white rounded-lg font-medium text-sm transition-colors border border-white/10">
+                                    Copy Referral Link
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

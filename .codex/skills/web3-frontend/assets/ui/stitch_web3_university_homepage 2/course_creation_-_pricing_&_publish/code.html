@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Course Creation - Pricing &amp; Publish</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec80",
+              "background-light": "#f6f8f7",
+              "background-dark": "#102219",
+              "surface-dark": "#11221a",
+              "surface-light": "#ffffff",
+              "card-dark": "#193326",
+              "border-green": "#32674d",
+              "text-secondary": "#92c9ad",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+                "DEFAULT": "0.25rem", 
+                "lg": "0.5rem", 
+                "xl": "0.75rem", 
+                "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-slate-900 dark:text-white overflow-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col w-64 h-full border-r border-border-green bg-surface-dark dark:bg-surface-dark shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Abstract geometric logo with green gradients" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCue5CeFiypXmxotEjX3guWp9QRDtk02dH66kF173f9xhql0MmAuKWmQp8akRd4uqwzPdJNZdZrsgjeSoHxCAtcMcUNJW_J9OeXfquRm34nP4BLzic5eZT1c_puFiRRPPTEtRTJI36qU2pEMkCjcU1RjHmAyHz4ENnZTMuU3VmPOMVkU75iMZtIA-t1tCAkM7mOQ9lmvosn7c9G_UvAPceQHfCOMPJl2psmd6mdDpYOqn8coduAwspUX6wVQ7EboBZjmipgIeiPP5YX");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-normal">Web3 University</h1>
+<p class="text-text-secondary text-xs font-normal leading-normal">Creator Studio</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 px-4 py-2 flex-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white hover:bg-card-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#234836] text-white" href="#">
+<span class="material-symbols-outlined text-primary">school</span>
+<p class="text-sm font-medium leading-normal">My Courses</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white hover:bg-card-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">account_balance_wallet</span>
+<p class="text-sm font-medium leading-normal">Earnings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white hover:bg-card-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">analytics</span>
+<p class="text-sm font-medium leading-normal">Analytics</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white hover:bg-card-dark transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+<div class="p-4 border-t border-border-green">
+<div class="flex items-center gap-3 px-3 py-2">
+<div class="bg-gray-700 rounded-full size-8 bg-cover" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAETL2-uP8LcqgUd9idwH7mjyDITCTDb3soXaqg8zgGYSLddkYM3AI1gu9xAf7cwm6w_-Y_yefA79w9sOzU9IUBojEwsv65p-zgVwA_E8gN9VUBUvRJzH15_8pWF_J8ic9bjKzmuc9Taj3kOVKKgXJuhqJSb9XZHf7geKFG-4RGUWQ4RlLw9V-QA-ShrUr4UsBUdqCiBPSfkvwnF13IjfxIar29BMLImHcoZQdNjhXT3JXKlZzl3iZxWHxi8OUUb8mSWw2czlpRHk-T");'></div>
+<div class="flex flex-col">
+<p class="text-white text-sm font-medium">Alex Creator</p>
+<p class="text-text-secondary text-xs">alex.eth</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 h-full overflow-y-auto bg-surface-dark relative flex flex-col">
+<div class="layout-container flex h-full grow flex-col">
+<div class="w-full max-w-[1200px] mx-auto p-6 md:p-10 flex flex-col gap-8">
+<!-- Header Section: Breadcrumbs + Progress + Title -->
+<div class="flex flex-col gap-6">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap items-center gap-2">
+<a class="text-text-secondary text-sm font-medium hover:text-white transition-colors" href="#">My Courses</a>
+<span class="text-text-secondary text-sm font-medium">/</span>
+<a class="text-text-secondary text-sm font-medium hover:text-white transition-colors" href="#">Create New</a>
+<span class="text-text-secondary text-sm font-medium">/</span>
+<span class="text-white text-sm font-medium">Pricing &amp; Publish</span>
+</div>
+<!-- Progress Bar -->
+<div class="flex flex-col gap-2">
+<div class="flex gap-6 justify-between items-end">
+<h1 class="text-white text-3xl font-black leading-tight tracking-[-0.033em]">Pricing &amp; Availability</h1>
+<div class="flex items-center gap-2 text-text-secondary">
+<span class="text-sm font-medium">Step 3 of 3</span>
+</div>
+</div>
+<div class="w-full h-2 bg-card-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+<!-- Main Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pb-20">
+<!-- Left Column: Settings Form -->
+<div class="lg:col-span-7 flex flex-col gap-8">
+<!-- Pricing Card -->
+<section class="flex flex-col gap-4">
+<div class="flex flex-col gap-1">
+<h2 class="text-white text-xl font-bold">Course Price</h2>
+<p class="text-text-secondary text-sm">Set the price for your course. Students will pay using YD Coin.</p>
+</div>
+<div class="bg-card-dark border border-border-green rounded-xl p-6 flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-white text-sm font-medium">Price in YD Coin</label>
+<div class="flex w-full items-stretch rounded-lg shadow-sm">
+<input class="form-input flex-1 bg-[#11221a] border border-border-green text-white placeholder-text-secondary text-lg h-14 px-4 rounded-l-lg focus:ring-1 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="0.00" step="0.01" type="number" value="25.00"/>
+<div class="bg-[#11221a] border border-l-0 border-border-green flex items-center justify-center px-4 rounded-r-lg text-text-secondary">
+<span class="text-lg font-bold text-white">YD</span>
+</div>
+</div>
+<p class="text-xs text-text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">currency_exchange</span>
+                                            Approx. $42.50 USD
+                                        </p>
+</div>
+<div class="flex items-start gap-3 p-4 bg-[#11221a] rounded-lg border border-border-green/50">
+<div class="flex h-6 items-center">
+<input class="h-5 w-5 rounded border-border-green bg-[#11221a] text-primary focus:ring-primary/20 focus:ring-offset-0" id="free-course" name="free-course" type="checkbox"/>
+</div>
+<div class="text-sm leading-6">
+<label class="font-medium text-white" for="free-course">Make this course free</label>
+<p class="text-text-secondary">Users will still need to sign a transaction to enroll.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Availability Section -->
+<section class="flex flex-col gap-4">
+<div class="flex flex-col gap-1">
+<h2 class="text-white text-xl font-bold">Availability</h2>
+<p class="text-text-secondary text-sm">Control when students can access your content.</p>
+</div>
+<div class="bg-card-dark border border-border-green rounded-xl p-6">
+<div class="flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<label class="text-white text-base font-bold">Open for Enrollment</label>
+<p class="text-text-secondary text-sm">Enable this to allow immediate purchases.</p>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-14 h-7 bg-[#11221a] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Web3 Disclaimer -->
+<div class="flex gap-3 p-4 rounded-lg bg-blue-900/20 border border-blue-800/50">
+<span class="material-symbols-outlined text-blue-400 shrink-0">info</span>
+<div class="flex flex-col gap-1">
+<p class="text-blue-200 text-sm font-medium">Blockchain Transaction Required</p>
+<p class="text-blue-300/70 text-xs leading-relaxed">Publishing this course creates a smart contract on the blockchain. You will be prompted to sign a transaction and pay a small gas fee in YD Coin.</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Summary & Actions -->
+<div class="lg:col-span-5 flex flex-col gap-8">
+<div class="sticky top-6 flex flex-col gap-6">
+<div class="flex flex-col gap-1">
+<h2 class="text-white text-xl font-bold">Course Preview</h2>
+<p class="text-text-secondary text-sm">This is how your course card will appear.</p>
+</div>
+<!-- Course Card Preview -->
+<div class="group relative flex flex-col w-full overflow-hidden rounded-xl bg-card-dark border border-border-green shadow-xl transition-all hover:shadow-2xl">
+<div class="relative aspect-video w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Futuristic decentralized finance concept art with glowing nodes" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuABHihj5x1M6Ob5K-ThmuEjXDCKL1GNYuveuuBzzXrS9aOIV2NA_GNBhXPhVbiAgY-fDxoz83lZrMz8W6bRm2Mx1azttNDZfwMXO_ux8BmIXZPxNsBxmtpysTqdJ1wM8ytOkGNFf-wSMqsPyYiDJFhC13qVxST56T_p6kut0N_Ag5pvGyjGhFpzA1q42ljdCII9A8N0XPjnuDsoba7aLPaeVFH0OFFMoEXtjGXWejHdhL5hTnfNduTk_2j0cjctvuRwyevDfJHhs-XE");'></div>
+<div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded text-xs font-bold text-white border border-white/10 uppercase tracking-wider">
+                                            Preview
+                                        </div>
+</div>
+<div class="flex flex-col p-5 gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary/20 text-primary text-[10px] font-bold uppercase tracking-wider">DeFi</span>
+<span class="text-text-secondary text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 4h 30m
+                                                </span>
+</div>
+<h3 class="text-white text-lg font-bold leading-snug">Introduction to Decentralized Finance</h3>
+<p class="text-text-secondary text-sm line-clamp-2">Learn the fundamentals of DeFi, liquidity pools, and yield farming in this comprehensive guide.</p>
+</div>
+<div class="h-px w-full bg-border-green/50"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-cover bg-center" data-alt="Avatar of the course creator" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD3ZeKZnTt8gN68KRSIBtjyP7A0xTo6rQqE9FF914SNZ1tPmO4NWoDUZl63wp3Sb3hROkeLOOP2-43i60_oiK1vj7Iz0tkpunbQ24EyY7KVWPMwLHq0_lra_AQseMska4rmm9NtR_OrmYbOjrvGP8PWJGGRc-QoNklKR_c_HAaLO9F9xcSWyDZDcgF7uiPlubYQLUF2q31hdZH0W7BvnvgwsjDoHtD13y7Apd2kgnj5mQo4_qG4kvQcRyIo-YCfDy_ZI2FWdH6m-PRB");'></div>
+<span class="text-white text-xs font-medium">Alex Creator</span>
+</div>
+<div class="text-primary font-bold text-lg">25.00 YD</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3 pt-4">
+<button class="w-full h-12 bg-primary hover:bg-[#0fd671] text-black font-bold text-base rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">rocket_launch</span>
+                                        Publish Course
+                                    </button>
+<button class="w-full h-12 bg-transparent border border-border-green hover:bg-card-dark text-white font-medium text-base rounded-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                                        Save as Draft
+                                    </button>
+<div class="flex justify-center mt-2">
+<a class="text-text-secondary text-sm hover:text-white transition-colors" href="#">Back to Content</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

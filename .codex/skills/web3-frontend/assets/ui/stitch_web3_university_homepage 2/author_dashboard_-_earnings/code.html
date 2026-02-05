@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Author Dashboard - Earnings</title>
+<!-- Google Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102219",
+                        "surface-dark": "#1c2e26", 
+                        "surface-highlight": "#234836",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #102219; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #234836; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #13ec80; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Sidebar -->
+<aside class="hidden md:flex w-64 flex-col border-r border-[#234836] bg-[#11221a]">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-6">
+<!-- Brand -->
+<div class="flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-[#234836]" data-alt="Abstract geometric logo representing blockchain education" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdGqWwqTSW6wwWC7dLgyiGPtefFpkkk6BpuEw3wGgY9NFFxCK5gu9DRgAUDwCVjaKmfHuboNapqovjA1ZMjeTtTKF3L-BDeYbIQbMfNocPatDvw7dHy2Aay8IEn5PCU7sAinaWQ5_huYJgmNvv50bsvrAZaK_I5DMCxzKIUMicyWWfFTYgAkbn2ZBgM0VIhvkDFxVFP-MFCDt1VV0H1WI3sS4W7QVENVMmYPmnpOPAbOwVdr2k3riIe6goILiTh5VchQAcwgs2ObPC");'></div>
+<h1 class="text-white text-lg font-bold leading-normal tracking-tight">Web3 University</h1>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-[#234836]/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-white">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-[#234836]/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-white">menu_book</span>
+<span class="text-sm font-medium">Courses</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#13ec80]/10 border border-[#13ec80]/20 text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[#13ec80]" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="text-sm font-medium text-[#13ec80]">Earnings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-[#234836]/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-white">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Bottom User Profile -->
+<div class="flex items-center gap-3 px-3 py-3 mt-auto rounded-lg border border-[#234836] bg-[#1c2e26]">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9" data-alt="User profile avatar of a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAU0w5gVDGlecEJKDhZArJbM1cFgQp-1oW-KPrA9NNzqXJkQoY8U3ylWfUoyefaSugXqpVzQJXAjEQHEWrFmVB1jrX05G2vDR_PbQQCT8E1ybRiqUBiY9HqtKxs9TuMmOqFoF34z2Ucfvq47KBiN-cKyAVtWoHPOX4IBXdpsR1YbF7ZO1x51tNGeK9qvUkzLExDeUCP68JspzfaYCrmG3M93azXzwjmGH0_l8I3YxSobKHvIpL6ZFCC_W0IAnqozxBw4Rgq_bAPEw0i");'></div>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#13ec80] border-2 border-[#1c2e26] rounded-full"></div>
+</div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-white text-sm font-medium truncate">Alex Morgan</p>
+<p class="text-gray-400 text-xs truncate">0x71C...9A2</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-y-auto bg-background-light dark:bg-background-dark relative">
+<!-- Mobile Header Placeholder (Visible only on small screens) -->
+<div class="md:hidden flex items-center justify-between p-4 border-b border-[#234836] bg-[#11221a]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#13ec80]">school</span>
+<span class="font-bold text-white">Web3 U</span>
+</div>
+<button class="text-white material-symbols-outlined">menu</button>
+</div>
+<div class="container mx-auto max-w-[1200px] p-6 lg:p-10 flex flex-col gap-8">
+<!-- Page Heading -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex flex-col gap-2 max-w-2xl">
+<h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-tight">Earnings Dashboard</h1>
+<p class="text-slate-600 dark:text-[#92c9ad] text-base font-normal">Track your revenue, manage withdrawals, and view transaction history on the blockchain.</p>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#234836] border border-[#13ec80]/30 self-start md:self-center">
+<div class="w-2 h-2 rounded-full bg-[#13ec80] animate-pulse"></div>
+<span class="text-xs font-medium text-[#13ec80] uppercase tracking-wider">Mainnet Connected</span>
+</div>
+</header>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Total Balance -->
+<div class="flex flex-col gap-1 rounded-xl p-6 bg-white dark:bg-[#234836] shadow-sm dark:shadow-none border border-slate-200 dark:border-white/5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-white text-6xl">account_balance_wallet</span>
+</div>
+<p class="text-slate-500 dark:text-gray-300 text-sm font-medium">Total Balance</p>
+<div class="flex items-baseline gap-2 mt-1">
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">4,500 YD</p>
+</div>
+<p class="text-[#0bda46] text-sm font-medium mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            +12% this month
+                        </p>
+</div>
+<!-- ETH Equivalent -->
+<div class="flex flex-col gap-1 rounded-xl p-6 bg-white dark:bg-[#234836] shadow-sm dark:shadow-none border border-slate-200 dark:border-white/5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-white text-6xl">currency_exchange</span>
+</div>
+<p class="text-slate-500 dark:text-gray-300 text-sm font-medium">ETH Equivalent</p>
+<div class="flex items-baseline gap-2 mt-1">
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">1.2 ETH</p>
+</div>
+<p class="text-[#0bda46] text-sm font-medium mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            +5% vs last week
+                        </p>
+</div>
+<!-- USD Equivalent -->
+<div class="flex flex-col gap-1 rounded-xl p-6 bg-white dark:bg-[#234836] shadow-sm dark:shadow-none border border-slate-200 dark:border-white/5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-white text-6xl">attach_money</span>
+</div>
+<p class="text-slate-500 dark:text-gray-300 text-sm font-medium">USD Equivalent</p>
+<div class="flex items-baseline gap-2 mt-1">
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">$2,150</p>
+</div>
+<p class="text-slate-400 dark:text-[#92c9ad] text-sm font-medium mt-2">
+                           Based on current oracle price
+                        </p>
+</div>
+</div>
+<!-- Mid Section: Chart & Withdrawal -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Earnings Chart -->
+<div class="lg:col-span-2 rounded-xl bg-white dark:bg-[#11221a] border border-slate-200 dark:border-[#234836] p-6 flex flex-col shadow-sm dark:shadow-none">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Earnings Trend</h3>
+<p class="text-slate-500 dark:text-[#92c9ad] text-sm">Revenue over the last 30 days</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded bg-slate-100 dark:bg-[#234836] text-xs font-medium dark:text-white text-slate-600">7D</button>
+<button class="px-3 py-1 rounded bg-[#13ec80] text-[#11221a] text-xs font-bold">30D</button>
+<button class="px-3 py-1 rounded bg-slate-100 dark:bg-[#234836] text-xs font-medium dark:text-white text-slate-600">ALL</button>
+</div>
+</div>
+<div class="flex-1 min-h-[250px] relative w-full">
+<!-- Integrated Chart SVG -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 478 150" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#13ec80" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#13ec80" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H0V109Z" fill="url(#chartGradient)"></path>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" fill="none" stroke="#13ec80" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+</div>
+</div>
+<!-- Withdrawal Action Card -->
+<div class="lg:col-span-1 rounded-xl overflow-hidden relative shadow-lg group">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Dark abstract futuristic digital mesh background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAwqEjm7StyELwcFWXIj6HEmZerWnKfoBQM85Y2vG9kmSOMec6A4kmk4DeXbWuUUEjghnTyRW5I41fcE3Rxmg1mbj_-SaHUYpxb-lsOmNmrb1JcVTn9kmV0MLqrTFU8Gu5PA3pFlNO7Z3ibVkNBWNiATS-vbZOc15ybhDOVT3BI7U6TxN9mvA1CYx6KxSM1RY5S8RAdKD_hpVU6TQYN2Qwo7ynZUM8RAdlCWOKZB_N9wPzW6AZdZpVrYWpe-wUeWlsd9zu-dnWpFDoa");'>
+<div class="absolute inset-0 bg-gradient-to-t from-[#102219] via-[#102219]/80 to-transparent"></div>
+</div>
+<div class="relative h-full flex flex-col justify-end p-6 gap-6 min-h-[300px]">
+<div class="flex items-center justify-between">
+<div class="px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#13ec80] text-sm">wallet</span>
+<span class="text-xs text-white font-mono">0x71C...9A2</span>
+</div>
+<div class="px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-sm">local_gas_station</span>
+<span class="text-xs text-gray-300">0.002 ETH</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-white text-2xl font-bold">Withdraw Funds</h3>
+<p class="text-gray-300 text-sm">Transfer your YD Coin earnings directly to your connected wallet.</p>
+</div>
+<button class="w-full flex items-center justify-center gap-2 h-12 rounded-lg bg-[#13ec80] hover:bg-[#0fd671] transition-colors text-[#11221a] font-bold text-sm shadow-[0_0_15px_rgba(19,236,128,0.3)] hover:shadow-[0_0_25px_rgba(19,236,128,0.5)]">
+<span class="material-symbols-outlined">payments</span>
+                                Withdraw YD Coin
+                            </button>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Course List & Transactions -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+<!-- Top Performing Courses -->
+<div class="flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-[#234836] bg-white dark:bg-[#11221a] p-6 shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Top Performing Courses</h3>
+<a class="text-[#13ec80] text-sm font-medium hover:underline" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Course Item 1 -->
+<div class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-[#234836]/30 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-[#234836]">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center shrink-0" data-alt="Abstract purple 3d shape representing DeFi concepts" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOs2LmHx1JrCUtRN789RqYx20qUWG-zEMCo1WiUDwUyWOfqA-n9Fm162u5vsYxOqyY8Da6LidVit-FOTLcgkDSrTiNw1BqHBwJbkpu8kb31Sp3nzlPd-meH7zkxw4FA340IwHGROIgBwme3xHr2fN_mY19sl2FXLqZ2e4q0WWe8vBTr6daAL-jndMfdeRnRIFIWYOBY6vsTjn_adAXQ2OVJ45Fn9nE-L0n1Mpma81wdfJX0DqFyZprBt_YDxCUctwiClwBFgC0dw3_");'></div>
+<div class="flex-1 min-w-0">
+<h4 class="text-slate-900 dark:text-white font-medium truncate">Introduction to DeFi</h4>
+<p class="text-slate-500 dark:text-gray-400 text-xs">245 Students Enrolled</p>
+</div>
+<div class="text-right">
+<p class="text-slate-900 dark:text-white font-bold">1,200 YD</p>
+<p class="text-[#0bda46] text-xs">+15%</p>
+</div>
+</div>
+<!-- Course Item 2 -->
+<div class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-[#234836]/30 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-[#234836]">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center shrink-0" data-alt="Golden bitcoin coin in a dark digital space" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7NGy-EoSllxyovp7Grgzq49lkET5zxv4L62Fw7lB4L3tfGWFaX2ZJ6om-EwqfQt5MzCPAg0iCNVWAr3kCyS2w-1h7V7ZrWINpX23-qaWxyZqVXZXxs2ts60G7bjV9sNyaA2s73dB9uNVKla_TR8N3xCSe9Ijw752h1wdu49Yq5aIuMOYo0Ex81E8GcnVhJK8hXdA6UxNpAy0yOrpjV6mwFefOEcUJ4MDMnzPGTkcdSoZ5LA64ORb2GTFSKNUWA06-ee8v1qWk6Oku");'></div>
+<div class="flex-1 min-w-0">
+<h4 class="text-slate-900 dark:text-white font-medium truncate">Bitcoin Fundamentals</h4>
+<p class="text-slate-500 dark:text-gray-400 text-xs">180 Students Enrolled</p>
+</div>
+<div class="text-right">
+<p class="text-slate-900 dark:text-white font-bold">850 YD</p>
+<p class="text-[#0bda46] text-xs">+8%</p>
+</div>
+</div>
+<!-- Course Item 3 -->
+<div class="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-[#234836]/30 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-[#234836]">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center shrink-0" data-alt="Blue ethereum crystal logo glowing" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmuSskeYqdt-9oZEU9fBFWNT2WRmSe8HrBGH0SP_IDnfRf_Ttgsg8WxPvk2V7kns6QNiAbZBUTDfJoXL89AQMQSqO9QInvZNNCgLDCGWZ4-nYmID4nU5A67Tqkp5_NY5dXLgUT0YFy83kgm-9fZn-elnUeDugGwArHQv0xIfNa_zlYaKiGppq1y8f3c5Ddbi_wwssBwxXxMzd5xqDTgG-ZLJuCCA7O3Bdij793ROm4WqDgVpZAQKT76nuamVBOscSv4dVGxhltvmRi");'></div>
+<div class="flex-1 min-w-0">
+<h4 class="text-slate-900 dark:text-white font-medium truncate">Smart Contract Security</h4>
+<p class="text-slate-500 dark:text-gray-400 text-xs">120 Students Enrolled</p>
+</div>
+<div class="text-right">
+<p class="text-slate-900 dark:text-white font-bold">600 YD</p>
+<p class="text-slate-400 dark:text-gray-500 text-xs">0%</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Transaction History -->
+<div class="flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-[#234836] bg-white dark:bg-[#11221a] p-6 shadow-sm dark:shadow-none overflow-hidden">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Recent Transactions</h3>
+<div class="flex gap-2">
+<button class="p-1 rounded hover:bg-slate-100 dark:hover:bg-[#234836] text-slate-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+</button>
+<button class="p-1 rounded hover:bg-slate-100 dark:hover:bg-[#234836] text-slate-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto -mx-6 px-6">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-slate-500 dark:text-gray-400 text-xs uppercase tracking-wider border-b border-slate-100 dark:border-[#234836]">
+<th class="pb-3 font-medium">Type</th>
+<th class="pb-3 font-medium">Date</th>
+<th class="pb-3 font-medium text-right">Amount</th>
+<th class="pb-3 font-medium text-center">Status</th>
+<th class="pb-3 font-medium text-right">Tx Hash</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="group border-b border-slate-50 dark:border-[#234836]/50 last:border-0 hover:bg-slate-50 dark:hover:bg-[#234836]/20 transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-2">
+<div class="p-1.5 rounded-full bg-red-500/10 text-red-500">
+<span class="material-symbols-outlined text-xs">arrow_outward</span>
+</div>
+<span class="text-slate-900 dark:text-white font-medium">Withdrawal</span>
+</div>
+</td>
+<td class="py-4 text-slate-500 dark:text-gray-400">Oct 24, 2023</td>
+<td class="py-4 text-right font-medium text-slate-900 dark:text-white">500 YD</td>
+<td class="py-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-500 border border-green-500/20">
+                                                Completed
+                                            </span>
+</td>
+<td class="py-4 text-right">
+<a class="text-[#13ec80] hover:text-[#0fd671] font-mono text-xs flex items-center justify-end gap-1" href="#">
+                                                0x8a...2b1 <span class="material-symbols-outlined text-[10px]">open_in_new</span>
+</a>
+</td>
+</tr>
+<tr class="group border-b border-slate-50 dark:border-[#234836]/50 last:border-0 hover:bg-slate-50 dark:hover:bg-[#234836]/20 transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-2">
+<div class="p-1.5 rounded-full bg-[#13ec80]/10 text-[#13ec80]">
+<span class="material-symbols-outlined text-xs">arrow_downward</span>
+</div>
+<span class="text-slate-900 dark:text-white font-medium">Earnings</span>
+</div>
+</td>
+<td class="py-4 text-slate-500 dark:text-gray-400">Oct 22, 2023</td>
+<td class="py-4 text-right font-medium text-slate-900 dark:text-white">120 YD</td>
+<td class="py-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-500 border border-green-500/20">
+                                                Completed
+                                            </span>
+</td>
+<td class="py-4 text-right">
+<a class="text-[#13ec80] hover:text-[#0fd671] font-mono text-xs flex items-center justify-end gap-1" href="#">
+                                                0x3c...9f2 <span class="material-symbols-outlined text-[10px]">open_in_new</span>
+</a>
+</td>
+</tr>
+<tr class="group border-b border-slate-50 dark:border-[#234836]/50 last:border-0 hover:bg-slate-50 dark:hover:bg-[#234836]/20 transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-2">
+<div class="p-1.5 rounded-full bg-[#13ec80]/10 text-[#13ec80]">
+<span class="material-symbols-outlined text-xs">arrow_downward</span>
+</div>
+<span class="text-slate-900 dark:text-white font-medium">Earnings</span>
+</div>
+</td>
+<td class="py-4 text-slate-500 dark:text-gray-400">Oct 20, 2023</td>
+<td class="py-4 text-right font-medium text-slate-900 dark:text-white">45 YD</td>
+<td class="py-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
+                                                Pending
+                                            </span>
+</td>
+<td class="py-4 text-right">
+<span class="text-slate-400 text-xs font-mono">-</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Footer / Disclaimers -->
+<div class="flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 dark:text-gray-600 pb-4">
+<p>© 2023 Web3 University. All rights reserved.</p>
+<div class="flex gap-4 mt-2 md:mt-0">
+<a class="hover:text-slate-600 dark:hover:text-gray-400" href="#">Privacy Policy</a>
+<a class="hover:text-slate-600 dark:hover:text-gray-400" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

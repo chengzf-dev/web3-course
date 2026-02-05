@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web3 Frontend"
+  short_description: "Build Web3 University UI (Next.js, wagmi, Tailwind)."
+  default_prompt: "Build the Web3 University frontend using docs/task.md and docs/ui assets."

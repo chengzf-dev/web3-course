@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Web3 University Homepage</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#11221a",
+                        "card-dark": "#193326",
+                        "input-dark": "#234836",
+                        "text-muted": "#92c9ad",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white overflow-x-hidden min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="w-full border-b border-[#234836] sticky top-0 z-50 bg-[#11221a]/95 backdrop-blur-sm">
+<div class="max-w-[1440px] mx-auto px-4 sm:px-10 py-3 flex items-center justify-between gap-4">
+<!-- Left: Logo & Search -->
+<div class="flex items-center gap-8 flex-1">
+<div class="flex items-center gap-3 text-white shrink-0">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] hidden md:block">Web3 University</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#92c9ad]">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-primary border-none bg-[#234836] placeholder:text-[#92c9ad] pl-10 pr-4 h-full text-sm font-normal leading-normal transition-all" placeholder="Search courses..." value=""/>
+</div>
+</label>
+</div>
+<!-- Right: Links & Actions -->
+<div class="flex items-center gap-4 sm:gap-8 justify-end">
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-white text-sm font-medium hover:text-primary transition-colors" href="#">Courses</a>
+<a class="text-white text-sm font-medium hover:text-primary transition-colors" href="#">Creators</a>
+<a class="text-white text-sm font-medium hover:text-primary transition-colors" href="#">Community</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex h-10 items-center justify-center rounded-lg px-4 bg-[#234836] text-white text-sm font-bold tracking-[0.015em] border border-transparent hover:border-primary/50 transition-colors gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">account_balance_wallet</span>
+<span class="truncate">120 YD / 0.5 ETH</span>
+</button>
+<button class="flex h-10 items-center justify-center rounded-lg px-4 bg-primary text-[#11221a] text-sm font-bold tracking-[0.015em] hover:bg-opacity-90 transition-opacity shadow-[0_0_10px_rgba(19,236,128,0.2)]">
+<span class="truncate">Connect Wallet</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1440px] mx-auto flex flex-col">
+<!-- Hero Section -->
+<section class="px-4 sm:px-10 py-8 lg:py-12">
+<div class="relative w-full rounded-2xl overflow-hidden min-h-[480px] flex flex-col justify-end p-6 sm:p-12 bg-cover bg-center group" data-alt="abstract digital blockchain nodes and connections glowing in dark space" style="background-image: linear-gradient(rgba(17, 34, 26, 0.3) 0%, rgba(17, 34, 26, 0.9) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBIaTbW_HU7z0tU-caUqqMnQutElO9eSIjMGojKTuqY8yDEVo5Slc8jWgObGCI4V0OUuuaLVy23hxXLgwDOn56gwfPJYJBG0xq-fGMBgWQ4On9JkwSa9OI8OUgNu5Gb4T3O1tgFSuHIhCXbl3k9FZwsC7A-9O3RfmU0_tkgYzf74td7XuoSyknls-s0jTin-2UeCuL0AfuNBJ9sXCkKWoJdXq_TpmfdGl1vPpI2_eWkmM4hu-BViZtBNOXDAJV_cESZsoTi-zG4cFW');">
+<div class="relative z-10 max-w-2xl flex flex-col gap-6 animate-fade-in-up">
+<div class="flex flex-col gap-3 text-left">
+<h1 class="text-white text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-[-0.033em]">
+                            Master the <span class="text-primary">Decentralized</span> Web
+                        </h1>
+<h2 class="text-gray-200 text-lg sm:text-xl font-normal leading-relaxed max-w-xl">
+                            The Future of Learning is Decentralized. Earn YD tokens while mastering Solidity, Rust, and DeFi protocols.
+                        </h2>
+</div>
+<div class="flex flex-wrap gap-4 mt-2">
+<button class="flex h-12 items-center justify-center rounded-lg px-8 bg-primary text-[#11221a] text-base font-bold tracking-[0.015em] hover:scale-105 transition-transform">
+                            Start Learning
+                        </button>
+<button class="flex h-12 items-center justify-center rounded-lg px-8 bg-[#234836]/80 backdrop-blur-md text-white text-base font-bold tracking-[0.015em] border border-[#13ec80]/30 hover:bg-[#234836] transition-colors">
+                            Create a Course
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Courses Section -->
+<section class="px-4 sm:px-10 py-8">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-white text-2xl font-bold tracking-tight">Featured Courses</h2>
+<a class="text-primary text-sm font-medium hover:underline flex items-center gap-1" href="#">
+                    View all <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="group flex flex-col bg-card-dark rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_20px_rgba(19,236,128,0.15)] transition-all duration-300 border border-transparent hover:border-primary/20">
+<div class="w-full h-48 bg-cover bg-center relative" data-alt="digital code visualization with geometric shapes" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBrJO1UFSjr8ygV2iJTTO8cEYjXcU5qZtfGw16IsO3Nh04rzcY9qi2nylj6uUSgAlHwhsNKx4k7gq-x7BPG5Jc93ocZA0p9N-diB9t1oE-ufSWyRMne2ZnjhA3YjZJ5FC1-FOuGBsx4Wu6sYDedrDTu3PYDGJ3IWLr509x4oVoBZ69BG0x8fEt3xlP06ngNAV_I_v7CUpqIj3UuiGuszYf7bOLNKIA0X3bGunRSryMSaxfrEfW0FqLEYpfcVFpjJiJZFI73kCUVqJUd');">
+<div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-primary border border-primary/20">POPULAR</div>
+</div>
+<div class="p-5 flex flex-col flex-1 gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="text-white text-xl font-bold leading-tight group-hover:text-primary transition-colors">Intro to Smart Contracts</h3>
+<p class="text-text-muted text-sm line-clamp-2">Learn the fundamentals of writing secure smart contracts on Ethereum using Solidity.</p>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="size-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white">AD</div>
+<span class="text-sm text-gray-300">Alice Dev</span>
+<span class="material-symbols-outlined text-blue-400 text-[16px]" title="Verified Creator">verified</span>
+</div>
+<div class="h-px bg-[#234836] w-full my-1"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-primary font-bold text-lg">500 YD</span>
+<span class="text-text-muted text-xs">≈ 0.05 ETH</span>
+</div>
+<button class="h-9 px-4 rounded-lg border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-[#11221a] transition-all">
+                                View Details
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col bg-card-dark rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_20px_rgba(19,236,128,0.15)] transition-all duration-300 border border-transparent hover:border-primary/20">
+<div class="w-full h-48 bg-cover bg-center relative" data-alt="3d rendering of nft art gallery concept" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCUhhWL78M4Kjchvs4ADWIITlobgDIa2X3ZnIhQ1ofJ-xGYAPBzrIjMHoujqK_CoL0fE_UoogAviBEfvXuuHw9V287ht75-Wf_wqqU6jwm-KdYDtIRf9SgvSPUuJYT4yfgB0H3eceNiD05c7rupPfgBhM70vW9kjr9IPMQ6zWenf7UJR1KzwV7AbdLpjH-n_VGZo3Ypw_wlJrp9UqP8p-sK-JEy1OSURqvgMF8yjArpWrdVDhXmwakQSWgYAFeG-8STnDsS30tg5JsC');">
+</div>
+<div class="p-5 flex flex-col flex-1 gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="text-white text-xl font-bold leading-tight group-hover:text-primary transition-colors">NFT Marketplace Architecture</h3>
+<p class="text-text-muted text-sm line-clamp-2">Build a full-stack NFT marketplace from scratch. ERC-721 standards and frontend integration.</p>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="size-8 rounded-full bg-gradient-to-tr from-yellow-500 to-red-500 flex items-center justify-center text-xs font-bold text-white">CG</div>
+<span class="text-sm text-gray-300">CryptoGuru</span>
+<span class="material-symbols-outlined text-blue-400 text-[16px]" title="Verified Creator">verified</span>
+</div>
+<div class="h-px bg-[#234836] w-full my-1"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-primary font-bold text-lg">1200 YD</span>
+<span class="text-text-muted text-xs">≈ 0.12 ETH</span>
+</div>
+<button class="h-9 px-4 rounded-lg border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-[#11221a] transition-all">
+                                View Details
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col bg-card-dark rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_20px_rgba(19,236,128,0.15)] transition-all duration-300 border border-transparent hover:border-primary/20">
+<div class="w-full h-48 bg-cover bg-center relative" data-alt="abstract financial graph rising" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPe-6VxhlD9jIL6v14VCT6_tMaKhEU18ofyegLNBBzh9hjsrjxDYPkT91i-TyGScgqCbxZCydNXSp9Eq3BO37Yil5orYI4dBGNoU44LK4duNZGz-ki-86zbxQPa1oHeFEFLa5FFGeLO9lYvEQLXtygk7_s4eJyWSZgYSNFiWqCE2LijvMUoo0uLd5v0apolybVXoOWCKkO-5764LQ4LRxo-pxAoNppGbMiAyi-P3sBLLGfghTlD8JREpKABs2_OPSx5QjHzUfWYC8z');">
+<div class="absolute top-3 right-3 bg-primary text-[#11221a] px-2 py-1 rounded text-xs font-bold">NEW</div>
+</div>
+<div class="p-5 flex flex-col flex-1 gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="text-white text-xl font-bold leading-tight group-hover:text-primary transition-colors">DeFi Fundamentals &amp; Yield Farming</h3>
+<p class="text-text-muted text-sm line-clamp-2">Understand the mechanics of decentralized finance, liquidity pools, and yield strategies.</p>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="size-8 rounded-full bg-gradient-to-tr from-green-500 to-teal-500 flex items-center justify-center text-xs font-bold text-white">DF</div>
+<span class="text-sm text-gray-300">DeFi DAO</span>
+</div>
+<div class="h-px bg-[#234836] w-full my-1"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-primary font-bold text-lg">800 YD</span>
+<span class="text-text-muted text-xs">≈ 0.08 ETH</span>
+</div>
+<button class="h-9 px-4 rounded-lg border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-[#11221a] transition-all">
+                                View Details
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Exchange and Staking Section -->
+<section class="px-4 sm:px-10 py-12 mb-12">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- YD Coin Exchange Widget -->
+<div class="bg-card-dark rounded-xl p-6 sm:p-8 border border-[#234836] relative overflow-hidden">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">currency_exchange</span>
+<h3 class="text-xl font-bold text-white">YD Coin Exchange</h3>
+</div>
+<div class="bg-[#11221a] px-3 py-1 rounded-full border border-[#234836] flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs text-text-muted">1 ETH = 10,000 YD</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<!-- From -->
+<div class="bg-[#11221a] rounded-lg p-4 flex items-center justify-between border border-transparent focus-within:border-primary/50 transition-colors">
+<div class="flex flex-col gap-1">
+<label class="text-xs text-text-muted uppercase font-bold">From</label>
+<input class="bg-transparent border-none p-0 text-white text-2xl font-bold focus:ring-0 w-full placeholder:text-[#234836]" placeholder="0.0" type="number"/>
+</div>
+<div class="flex items-center gap-2 bg-[#234836] px-3 py-1.5 rounded-lg shrink-0">
+<span class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-[10px] font-bold">Ξ</span>
+<span class="font-bold text-white">ETH</span>
+</div>
+</div>
+<!-- Swap Icon -->
+<div class="flex justify-center -my-3 z-10">
+<button class="bg-[#234836] border border-[#11221a] text-primary p-2 rounded-full hover:bg-primary hover:text-[#11221a] transition-all">
+<span class="material-symbols-outlined text-xl block">swap_vert</span>
+</button>
+</div>
+<!-- To -->
+<div class="bg-[#11221a] rounded-lg p-4 flex items-center justify-between border border-transparent focus-within:border-primary/50 transition-colors">
+<div class="flex flex-col gap-1">
+<label class="text-xs text-text-muted uppercase font-bold">To</label>
+<input class="bg-transparent border-none p-0 text-white text-2xl font-bold focus:ring-0 w-full placeholder:text-[#234836]" placeholder="0.0" type="number"/>
+</div>
+<div class="flex items-center gap-2 bg-[#234836] px-3 py-1.5 rounded-lg shrink-0">
+<span class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-[#11221a]">YD</span>
+<span class="font-bold text-white">YD</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 bg-primary text-[#11221a] font-bold text-lg py-3 rounded-lg hover:bg-opacity-90 transition-opacity">
+                        Swap Coins
+                    </button>
+</div>
+<!-- Staking Teaser Widget -->
+<div class="bg-gradient-to-br from-[#193326] to-[#11221a] rounded-xl p-6 sm:p-8 border border-[#234836] flex flex-col justify-between relative overflow-hidden">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">savings</span>
+<h3 class="text-xl font-bold text-white">Staking Pool Active</h3>
+</div>
+<p class="text-gray-300 text-base mb-6">
+                            Stake your YD earnings to unlock the <span class="text-white font-bold">"Master Class"</span> tier and earn passive rewards. Join over 4,000 students already staking.
+                        </p>
+<div class="flex items-end gap-2 mb-2">
+<span class="text-4xl font-black text-primary">12%</span>
+<span class="text-text-muted mb-1.5 font-medium">APY</span>
+</div>
+<!-- Progress Bar Visual -->
+<div class="w-full h-3 bg-[#11221a] rounded-full overflow-hidden mb-2">
+<div class="h-full bg-primary w-[75%] rounded-full shadow-[0_0_10px_rgba(19,236,128,0.5)]"></div>
+</div>
+<div class="flex justify-between text-xs text-text-muted mb-8">
+<span>Pool Capacity</span>
+<span>75% Filled</span>
+</div>
+</div>
+<div class="relative z-10 bg-[#234836]/50 rounded-lg p-4 backdrop-blur-sm border border-[#234836]">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-text-muted uppercase">Your Rewards</span>
+<span class="text-white font-bold text-lg">0.00 YD</span>
+</div>
+<button class="px-6 py-2 bg-white text-[#11221a] font-bold rounded-lg hover:bg-gray-200 transition-colors">
+                                Stake Now
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Simple Footer -->
+<footer class="border-t border-[#234836] bg-[#11221a] py-8">
+<div class="max-w-[1440px] mx-auto px-4 sm:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined text-primary">school</span>
+<span class="font-bold text-sm">Web3 University © 2023</span>
+</div>
+<div class="flex gap-6">
+<a class="text-text-muted hover:text-white text-sm transition-colors" href="#">Terms</a>
+<a class="text-text-muted hover:text-white text-sm transition-colors" href="#">Privacy</a>
+<a class="text-text-muted hover:text-white text-sm transition-colors" href="#">Smart Contract</a>
+</div>
+</div>
+</footer>
+</body></html>
