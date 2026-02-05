@@ -1,0 +1,122 @@
+// Prisma schema for Web3-Course backend
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  LEARNER
+  AUTHOR
+  ADMIN
+}
+
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  FLAGGED
+  FROZEN
+}
+
+enum ModerationStatus {
+  PENDING
+  APPROVED
+  FLAGGED
+}
+
+model User {
+  id            String   @id @default(cuid())
+  walletAddress String   @unique
+  ensName       String?  @db.VarChar(255)
+  role          UserRole @default(LEARNER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  authoredCourses Course[]
+  purchases       Purchase[]
+  progresses      CourseProgress[]
+}
+
+model Course {
+  id            String       @id
+  title         String       @db.VarChar(200)
+  description   String       @db.VarChar(2000)
+  priceYd       String       @db.VarChar(64)
+  authorAddress String       @db.VarChar(64)
+  authorId      String
+  status        CourseStatus @default(DRAFT)
+  coverImageUrl String?      @db.VarChar(512)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  author      User           @relation(fields: [authorId], references: [id])
+  content     CourseContent?
+  purchases   Purchase[]
+  progresses  CourseProgress[]
+  moderation  ModerationRecord?
+}
+
+model CourseContent {
+  id        String   @id @default(cuid())
+  courseId  String   @unique
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id])
+}
+
+model Purchase {
+  id            String   @id @default(cuid())
+  courseId      String
+  userId        String
+  walletAddress String   @db.VarChar(64)
+  chainId       Int
+  txHash        String   @unique
+  priceYd       String   @db.VarChar(64)
+  purchasedAt   DateTime @default(now())
+
+  course Course @relation(fields: [courseId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([courseId, userId])
+}
+
+model CourseProgress {
+  id        String   @id @default(cuid())
+  courseId  String
+  userId    String
+  progress  Int
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([courseId, userId])
+}
+
+model ModerationRecord {
+  id         String            @id @default(cuid())
+  courseId   String            @unique
+  status     ModerationStatus  @default(PENDING)
+  notes      String?           @db.VarChar(2000)
+  reviewedBy String?           @db.VarChar(64)
+  reviewedAt DateTime?
+  createdAt  DateTime          @default(now())
+
+  course Course @relation(fields: [courseId], references: [id])
+}
+
+model PlatformMetricDaily {
+  id            String   @id @default(cuid())
+  date          DateTime @unique
+  dau           Int
+  wau           Int
+  conversionPct Float
+  revenueYd     String   @db.VarChar(64)
+  createdAt     DateTime @default(now())
+}
