@@ -1,0 +1,91 @@
+// Prisma schema for Web3-Course backend
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  AUTHOR
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  FROZEN
+}
+
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  UNPUBLISHED
+}
+
+model User {
+  id            String     @id @default(uuid())
+  walletAddress String     @unique @db.VarChar(64)
+  ens           String?    @db.VarChar(255)
+  role          UserRole   @default(STUDENT)
+  status        UserStatus @default(ACTIVE)
+  createdAt     DateTime   @default(now())
+
+  courses Course[]
+}
+
+model Course {
+  id            String       @id @default(uuid())
+  title         String       @db.VarChar(200)
+  description   String       @db.VarChar(2000)
+  content       String
+  priceYd       String       @db.VarChar(64)
+  authorAddress String       @db.VarChar(64)
+  status        CourseStatus @default(DRAFT)
+  createdAt     DateTime     @default(now())
+
+  author   User       @relation(fields: [authorId], references: [id])
+  authorId String
+  purchases  Purchase[]
+  progresses Progress[]
+  certificates Certificate[]
+}
+
+model Purchase {
+  id           String   @id @default(uuid())
+  courseId     String
+  buyerAddress String   @db.VarChar(64)
+  txHash       String   @unique @db.VarChar(128)
+  createdAt    DateTime @default(now())
+
+  course Course @relation(fields: [courseId], references: [id])
+}
+
+model Progress {
+  id            String   @id @default(uuid())
+  courseId      String
+  userAddress   String   @db.VarChar(64)
+  percent       Int
+  lastSectionId String?  @db.VarChar(128)
+  updatedAt     DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, userAddress])
+}
+
+model Certificate {
+  id          String   @id @default(uuid())
+  courseId    String
+  userAddress String   @db.VarChar(64)
+  tokenId     String   @db.VarChar(128)
+  txHash      String?  @db.VarChar(128)
+  createdAt   DateTime @default(now())
+
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, userAddress])
+}
