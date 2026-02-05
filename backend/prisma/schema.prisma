@@ -10,113 +10,82 @@ datasource db {
 }
 
 enum UserRole {
-  LEARNER
+  STUDENT
   AUTHOR
   ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  FROZEN
 }
 
 enum CourseStatus {
   DRAFT
   PUBLISHED
-  FLAGGED
-  FROZEN
-}
-
-enum ModerationStatus {
-  PENDING
-  APPROVED
-  FLAGGED
+  UNPUBLISHED
 }
 
 model User {
-  id            String   @id @default(cuid())
-  walletAddress String   @unique
-  ensName       String?  @db.VarChar(255)
-  role          UserRole @default(LEARNER)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id            String     @id @default(uuid())
+  walletAddress String     @unique @db.VarChar(64)
+  ens           String?    @db.VarChar(255)
+  role          UserRole   @default(STUDENT)
+  status        UserStatus @default(ACTIVE)
+  createdAt     DateTime   @default(now())
 
-  authoredCourses Course[]
-  purchases       Purchase[]
-  progresses      CourseProgress[]
+  courses Course[]
 }
 
 model Course {
-  id            String       @id
+  id            String       @id @default(uuid())
   title         String       @db.VarChar(200)
   description   String       @db.VarChar(2000)
+  content       String
   priceYd       String       @db.VarChar(64)
   authorAddress String       @db.VarChar(64)
-  authorId      String
   status        CourseStatus @default(DRAFT)
-  coverImageUrl String?      @db.VarChar(512)
   createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
 
-  author      User           @relation(fields: [authorId], references: [id])
-  content     CourseContent?
-  purchases   Purchase[]
-  progresses  CourseProgress[]
-  moderation  ModerationRecord?
-}
-
-model CourseContent {
-  id        String   @id @default(cuid())
-  courseId  String   @unique
-  content   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  course Course @relation(fields: [courseId], references: [id])
+  author   User       @relation(fields: [authorId], references: [id])
+  authorId String
+  purchases  Purchase[]
+  progresses Progress[]
+  certificates Certificate[]
 }
 
 model Purchase {
-  id            String   @id @default(cuid())
+  id           String   @id @default(uuid())
+  courseId     String
+  buyerAddress String   @db.VarChar(64)
+  txHash       String   @unique @db.VarChar(128)
+  createdAt    DateTime @default(now())
+
+  course Course @relation(fields: [courseId], references: [id])
+}
+
+model Progress {
+  id            String   @id @default(uuid())
   courseId      String
-  userId        String
-  walletAddress String   @db.VarChar(64)
-  chainId       Int
-  txHash        String   @unique
-  priceYd       String   @db.VarChar(64)
-  purchasedAt   DateTime @default(now())
+  userAddress   String   @db.VarChar(64)
+  percent       Int
+  lastSectionId String?  @db.VarChar(128)
+  updatedAt     DateTime @updatedAt
 
   course Course @relation(fields: [courseId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
 
-  @@index([courseId, userId])
+  @@unique([courseId, userAddress])
 }
 
-model CourseProgress {
-  id        String   @id @default(cuid())
-  courseId  String
-  userId    String
-  progress  Int
-  updatedAt DateTime @updatedAt
+model Certificate {
+  id          String   @id @default(uuid())
+  courseId    String
+  userAddress String   @db.VarChar(64)
+  tokenId     String   @db.VarChar(128)
+  txHash      String?  @db.VarChar(128)
+  createdAt   DateTime @default(now())
 
   course Course @relation(fields: [courseId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
 
-  @@unique([courseId, userId])
-}
-
-model ModerationRecord {
-  id         String            @id @default(cuid())
-  courseId   String            @unique
-  status     ModerationStatus  @default(PENDING)
-  notes      String?           @db.VarChar(2000)
-  reviewedBy String?           @db.VarChar(64)
-  reviewedAt DateTime?
-  createdAt  DateTime          @default(now())
-
-  course Course @relation(fields: [courseId], references: [id])
-}
-
-model PlatformMetricDaily {
-  id            String   @id @default(cuid())
-  date          DateTime @unique
-  dau           Int
-  wau           Int
-  conversionPct Float
-  revenueYd     String   @db.VarChar(64)
-  createdAt     DateTime @default(now())
+  @@unique([courseId, userAddress])
 }
