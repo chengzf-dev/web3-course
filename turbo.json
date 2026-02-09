@@ -1,0 +1,49 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "node": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "frontend/.next/**",
+        "backend/dist/**",
+        "contracts/artifacts/**",
+        "contracts/cache/**",
+        "contracts/typechain-types/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "compile": {
+      "outputs": [
+        "contracts/artifacts/**",
+        "contracts/cache/**",
+        "contracts/typechain-types/**"
+      ]
+    },
+    "deploy:local": {
+      "cache": false
+    },
+    "deploy:sepolia": {
+      "cache": false
+    },
+    "export:abi:local": {
+      "cache": false
+    },
+    "export:abi:sepolia": {
+      "cache": false
+    }
+  }
+}

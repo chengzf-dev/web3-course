@@ -1,0 +1,673 @@
+// MetaMask 账户管理器
+class MetaMaskAccountManager {
+  constructor() {
+    this.accounts = [];
+    this.currentAccount = null;
+    this.isConnected = false;
+    this.init();
+  }
+
+  // 初始化
+  async init() {
+    try {
+      this.checkMetaMask();
+      this.setupEventListeners();
+      
+      // 检查是否已经连接
+      await this.checkConnection();
+    } catch (error) {
+      console.error('MetaMask 初始化失败:', error);
+    }
+  }
+
+  // 检查 MetaMask 是否安装
+  checkMetaMask() {
+    if (typeof window.ethereum === 'undefined') {
+      throw new Error('MetaMask 未安装，请先安装 MetaMask 钱包');
+    }
+    return true;
+  }
+
+  // 检查当前连接状态
+  async checkConnection() {
+    try {
+      const accounts = await window.ethereum.request({
+        method: 'eth_accounts',
+      });
+      
+      if (accounts.length > 0) {
+        this.accounts = accounts;
+        this.currentAccount = accounts[0];
+        this.isConnected = true;
+        console.log('✅ 已连接账户:', this.currentAccount);
+        console.log('📋 所有账户:', this.accounts);
+      } else {
+        this.isConnected = false;
+        console.log('❌ 未连接任何账户');
+      }
+      
+      return this.isConnected;
+    } catch (error) {
+      console.error('检查连接状态失败:', error);
+      return false;
+    }
+  }
+
+  // 连接 MetaMask（请求账户授权）
+  async connect() {
+    try {
+      this.checkMetaMask();
+      
+      console.log('🔗 正在请求连接 MetaMask...');
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+
+      if (accounts.length === 0) {
+        throw new Error('用户拒绝了连接请求');
+      }
+
+      this.accounts = accounts;
+      this.currentAccount = accounts[0];
+      this.isConnected = true;
+
+      console.log('✅ MetaMask 连接成功!');
+      console.log('👤 当前账户:', this.currentAccount);
+      console.log('📋 所有账户:', this.accounts);
+
+      return {
+        success: true,
+        currentAccount: this.currentAccount,
+        allAccounts: this.accounts,
+      };
+    } catch (error) {
+      console.error('❌ MetaMask 连接失败:', error);
+      this.isConnected = false;
+      throw error;
+    }
+  }
+
+  // 断开连接
+  async disconnect() {
+    try {
+      // MetaMask 没有直接的断开方法，但我们可以清除本地状态
+      this.accounts = [];
+      this.currentAccount = null;
+      this.isConnected = false;
+      
+      console.log('📤 已断开 MetaMask 连接');
+      return true;
+    } catch (error) {
+      console.error('断开连接失败:', error);
+      throw error;
+    }
+  }
+
+  // 获取所有账户
+  async getAllAccounts() {
+    try {
+      const accounts = await window.ethereum.request({
+        method: 'eth_accounts',
+      });
+      this.accounts = accounts;
+      console.log('📋 获取到所有账户:', accounts);
+      return accounts;
+    } catch (error) {
+      console.error('获取账户列表失败:', error);
+      throw error;
+    }
+  }
+
+  // 切换到指定账户（通过索引）
+  async switchToAccount(accountIndex) {
+    try {
+      await this.getAllAccounts();
+      
+      if (accountIndex < 0 || accountIndex >= this.accounts.length) {
+        throw new Error(`无效的账户索引: ${accountIndex}`);
+      }
+
+      const targetAccount = this.accounts[accountIndex];
+      
+      // 请求切换到指定账户
+      await window.ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [{ eth_accounts: {} }],
+      });
+
+      // 更新当前账户
+      this.currentAccount = targetAccount;
+      console.log(`✅ 已切换到账户: ${targetAccount}`);
+      
+      return {
+        success: true,
+        account: targetAccount,
+        index: accountIndex,
+      };
+    } catch (error) {
+      console.error('切换账户失败:', error);
+      throw error;
+    }
+  }
+
+  // 切换到指定账户（通过地址）
+  async switchToAccountByAddress(address) {
+    try {
+      await this.getAllAccounts();
+      
+      const accountIndex = this.accounts.findIndex(
+        account => account.toLowerCase() === address.toLowerCase()
+      );
+      
+      if (accountIndex === -1) {
+        throw new Error(`账户地址不存在: ${address}`);
+      }
+
+      return await this.switchToAccount(accountIndex);
+    } catch (error) {
+      console.error('按地址切换账户失败:', error);
+      throw error;
+    }
+  }
+
+  // 获取账户余额
+  async getAccountBalance(account = this.currentAccount) {
+    try {
+      if (!account) {
+        throw new Error('未指定账户地址');
+      }
+
+      const balance = await window.ethereum.request({
+        method: 'eth_getBalance',
+        params: [account, 'latest'],
+      });
+
+      // 将 Wei 转换为 ETH
+      const balanceInEth = parseInt(balance, 16) / Math.pow(10, 18);
+      
+      console.log(`💰 账户 ${account} 余额: ${balanceInEth.toFixed(4)} ETH`);
+      return {
+        wei: balance,
+        eth: balanceInEth,
+        formatted: `${balanceInEth.toFixed(4)} ETH`,
+      };
+    } catch (error) {
+      console.error('获取余额失败:', error);
+      throw error;
+    }
+  }
+
+  // 获取所有账户的余额
+  async getAllAccountsWithBalance() {
+    try {
+      await this.getAllAccounts();
+      
+      const accountsWithBalance = await Promise.all(
+        this.accounts.map(async (account, index) => {
+          try {
+            const balance = await this.getAccountBalance(account);
+            return {
+              index,
+              address: account,
+              balance: balance,
+              isCurrent: account === this.currentAccount,
+            };
+          } catch (error) {
+            return {
+              index,
+              address: account,
+              balance: { eth: 0, formatted: '0 ETH' },
+              isCurrent: account === this.currentAccount,
+              error: error.message,
+            };
+          }
+        })
+      );
+
+      console.log('💼 所有账户信息:', accountsWithBalance);
+      return accountsWithBalance;
+    } catch (error) {
+      console.error('获取账户余额失败:', error);
+      throw error;
+    }
+  }
+
+  // 设置事件监听器
+  setupEventListeners() {
+    if (!window.ethereum) return;
+
+    // 监听账户变化
+    window.ethereum.on('accountsChanged', async (accounts) => {
+      console.log('👤 账户发生变化:', accounts);
+      
+      if (accounts.length === 0) {
+        // 用户断开了连接
+        this.accounts = [];
+        this.currentAccount = null;
+        this.isConnected = false;
+        console.log('📤 用户已断开所有账户');
+        this.onAccountDisconnected();
+      } else {
+        // 用户切换了账户
+        this.accounts = accounts;
+        this.currentAccount = accounts[0];
+        this.isConnected = true;
+        console.log('🔄 账户已切换到:', this.currentAccount);
+        this.onAccountChanged(this.currentAccount);
+      }
+    });
+
+    // 监听网络变化
+    window.ethereum.on('chainChanged', (chainId) => {
+      console.log('🔗 网络已变化:', chainId);
+      this.onNetworkChanged(chainId);
+    });
+  }
+
+  // 账户变化回调（可重写）
+  onAccountChanged(newAccount) {
+    console.log('🔄 触发账户变化事件:', newAccount);
+    // 在这里添加您的自定义逻辑
+  }
+
+  // 账户断开回调（可重写）
+  onAccountDisconnected() {
+    console.log('📤 触发账户断开事件');
+    // 在这里添加您的自定义逻辑
+  }
+
+  // 网络变化回调（可重写）
+  onNetworkChanged(chainId) {
+    console.log('🔗 触发网络变化事件:', chainId);
+    // 在这里添加您的自定义逻辑
+  }
+
+  // 获取当前状态
+  getStatus() {
+    return {
+      isConnected: this.isConnected,
+      currentAccount: this.currentAccount,
+      allAccounts: this.accounts,
+      accountCount: this.accounts.length,
+    };
+  }
+}
+
+// 快捷函数
+async function quickConnect() {
+  const manager = new MetaMaskAccountManager();
+  return await manager.connect();
+}
+
+async function quickSwitchAccount(accountIndex) {
+  const manager = new MetaMaskAccountManager();
+  return await manager.switchToAccount(accountIndex);
+}
+
+async function quickGetAllAccounts() {
+  const manager = new MetaMaskAccountManager();
+  return await manager.getAllAccountsWithBalance();
+}
+
+// 导出
+export {
+  MetaMaskAccountManager,
+  quickConnect,
+  quickSwitchAccount,
+  quickGetAllAccounts,
+};
+
+// 使用示例
+/*
+// 1. 基本使用
+const accountManager = new MetaMaskAccountManager();
+await accountManager.connect();                    // 连接
+await accountManager.switchToAccount(1);           // 切换到第2个账户
+await accountManager.getAllAccountsWithBalance();  // 获取所有账户和余额
+
+// 2. 快捷方式
+await quickConnect();                              // 快速连接
+await quickSwitchAccount(0);                       // 切换到第1个账户
+const accounts = await quickGetAllAccounts();      // 获取账户列表
+
+// 3. HTML 集成示例
+<button onclick="quickConnect()">连接 MetaMask</button>
+<button onclick="quickSwitchAccount(0)">切换到账户 1</button>
+<button onclick="quickSwitchAccount(1)">切换到账户 2</button>
+<button onclick="quickGetAllAccounts().then(console.log)">显示所有账户</button>
+
+// 4. 自定义事件处理
+class MyApp extends MetaMaskAccountManager {
+  onAccountChanged(newAccount) {
+    document.getElementById('current-account').textContent = newAccount;
+    this.updateUI();
+  }
+  
+  onAccountDisconnected() {
+    document.getElementById('current-account').textContent = '未连接';
+    this.showLoginButton();
+  }
+}
+*/
+
+// MetaMask 网络配置
+const NETWORK_CONFIGS = {
+  ethereum: {
+    chainId: '0x1',
+    chainName: 'Ethereum Mainnet',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    rpcUrls: ['https://mainnet.infura.io/v3/YOUR_INFURA_KEY'],
+    blockExplorerUrls: ['https://etherscan.io/'],
+  },
+  polygon: {
+    chainId: '0x89',
+    chainName: 'Polygon Mainnet',
+    nativeCurrency: {
+      name: 'MATIC',
+      symbol: 'MATIC',
+      decimals: 18,
+    },
+    rpcUrls: ['https://polygon-rpc.com/'],
+    blockExplorerUrls: ['https://polygonscan.com/'],
+  },
+  bsc: {
+    chainId: '0x38',
+    chainName: 'BNB Smart Chain',
+    nativeCurrency: {
+      name: 'BNB',
+      symbol: 'BNB',
+      decimals: 18,
+    },
+    rpcUrls: ['https://bsc-dataseed1.binance.org/'],
+    blockExplorerUrls: ['https://bscscan.com/'],
+  },
+  arbitrum: {
+    chainId: '0xa4b1',
+    chainName: 'Arbitrum One',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    rpcUrls: ['https://arb1.arbitrum.io/rpc'],
+    blockExplorerUrls: ['https://arbiscan.io/'],
+  },
+  optimism: {
+    chainId: '0xa',
+    chainName: 'Optimism',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    rpcUrls: ['https://mainnet.optimism.io/'],
+    blockExplorerUrls: ['https://optimistic.etherscan.io/'],
+  },
+  base: {
+    chainId: '0x2105',
+    chainName: 'Base',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    rpcUrls: ['https://mainnet.base.org/'],
+    blockExplorerUrls: ['https://basescan.org/'],
+  },
+  avalanche: {
+    chainId: '0xa86a',
+    chainName: 'Avalanche C-Chain',
+    nativeCurrency: {
+      name: 'AVAX',
+      symbol: 'AVAX',
+      decimals: 18,
+    },
+    rpcUrls: ['https://api.avax.network/ext/bc/C/rpc'],
+    blockExplorerUrls: ['https://snowtrace.io/'],
+  },
+  // 测试网络
+  sepolia: {
+    chainId: '0xaa36a7',
+    chainName: 'Sepolia Testnet',
+    nativeCurrency: {
+      name: 'Sepolia Ether',
+      symbol: 'SEP',
+      decimals: 18,
+    },
+    rpcUrls: ['https://sepolia.infura.io/v3/YOUR_INFURA_KEY'],
+    blockExplorerUrls: ['https://sepolia.etherscan.io/'],
+  },
+  polygonMumbai: {
+    chainId: '0x13881',
+    chainName: 'Polygon Mumbai Testnet',
+    nativeCurrency: {
+      name: 'MATIC',
+      symbol: 'MATIC',
+      decimals: 18,
+    },
+    rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
+    blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
+  },
+};
+
+// 检查是否安装了 MetaMask
+function checkMetaMask() {
+  if (typeof window.ethereum === 'undefined') {
+    throw new Error('MetaMask 未安装，请先安装 MetaMask 钱包');
+  }
+  return true;
+}
+
+// 连接 MetaMask
+async function connectMetaMask() {
+  try {
+    checkMetaMask();
+    const accounts = await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+    console.log('✅ MetaMask 连接成功:', accounts[0]);
+    return accounts[0];
+  } catch (error) {
+    console.error('❌ MetaMask 连接失败:', error);
+    throw error;
+  }
+}
+
+// 获取当前网络信息
+async function getCurrentNetwork() {
+  try {
+    checkMetaMask();
+    const chainId = await window.ethereum.request({
+      method: 'eth_chainId',
+    });
+    console.log('🔗 当前网络 Chain ID:', chainId);
+    return chainId;
+  } catch (error) {
+    console.error('❌ 获取网络信息失败:', error);
+    throw error;
+  }
+}
+
+// 切换到指定网络
+async function switchToNetwork(networkName) {
+  try {
+    checkMetaMask();
+    
+    const networkConfig = NETWORK_CONFIGS[networkName];
+    if (!networkConfig) {
+      throw new Error(`不支持的网络: ${networkName}`);
+    }
+
+    console.log(`🔄 正在切换到 ${networkConfig.chainName}...`);
+
+    try {
+      // 尝试切换到目标网络
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: networkConfig.chainId }],
+      });
+      console.log(`✅ 成功切换到 ${networkConfig.chainName}`);
+      return true;
+    } catch (switchError) {
+      // 如果网络不存在，尝试添加网络
+      if (switchError.code === 4902) {
+        console.log(`📝 网络不存在，正在添加 ${networkConfig.chainName}...`);
+        await addNetwork(networkConfig);
+        return true;
+      } else {
+        throw switchError;
+      }
+    }
+  } catch (error) {
+    console.error(`❌ 切换网络失败:`, error);
+    throw error;
+  }
+}
+
+// 添加新网络到 MetaMask
+async function addNetwork(networkConfig) {
+  try {
+    await window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [networkConfig],
+    });
+    console.log(`✅ 成功添加网络: ${networkConfig.chainName}`);
+  } catch (error) {
+    console.error(`❌ 添加网络失败:`, error);
+    throw error;
+  }
+}
+
+// 批量切换网络（带重试机制）
+async function switchWithRetry(networkName, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      await switchToNetwork(networkName);
+      return true;
+    } catch (error) {
+      console.log(`重试 ${i + 1}/${maxRetries}: ${error.message}`);
+      if (i === maxRetries - 1) {
+        throw error;
+      }
+      // 等待 1 秒后重试
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
+}
+
+// 监听网络切换事件
+function setupNetworkListener() {
+  if (window.ethereum) {
+    window.ethereum.on('chainChanged', (chainId) => {
+      console.log('🔄 网络已切换，新的 Chain ID:', chainId);
+      // 页面可能需要刷新来适应新网络
+      window.location.reload();
+    });
+
+    window.ethereum.on('accountsChanged', (accounts) => {
+      console.log('👤 账户已切换:', accounts[0] || '未连接');
+      if (accounts.length === 0) {
+        console.log('📤 用户已断开连接');
+      }
+    });
+  }
+}
+
+// 工具函数：获取网络名称
+function getNetworkName(chainId) {
+  const networkMap = {
+    '0x1': 'Ethereum Mainnet',
+    '0x89': 'Polygon',
+    '0x38': 'BNB Smart Chain',
+    '0xa4b1': 'Arbitrum One',
+    '0xa': 'Optimism',
+    '0x2105': 'Base',
+    '0xa86a': 'Avalanche',
+    '0xaa36a7': 'Sepolia Testnet',
+    '0x13881': 'Polygon Mumbai',
+  };
+  return networkMap[chainId] || `Unknown Network (${chainId})`;
+}
+
+// 使用示例和 UI 交互函数
+class MetaMaskNetworkSwitcher {
+  constructor() {
+    this.currentAccount = null;
+    this.currentChainId = null;
+    this.init();
+  }
+
+  async init() {
+    try {
+      checkMetaMask();
+      setupNetworkListener();
+      
+      // 获取当前状态
+      this.currentChainId = await getCurrentNetwork();
+      console.log('🌐 当前网络:', getNetworkName(this.currentChainId));
+    } catch (error) {
+      console.error('初始化失败:', error);
+    }
+  }
+
+  async connect() {
+    this.currentAccount = await connectMetaMask();
+    return this.currentAccount;
+  }
+
+  async switchTo(networkName) {
+    return await switchToNetwork(networkName);
+  }
+
+  async switchWithRetry(networkName, maxRetries = 3) {
+    return await switchWithRetry(networkName, maxRetries);
+  }
+
+  getSupportedNetworks() {
+    return Object.keys(NETWORK_CONFIGS);
+  }
+
+  getNetworkConfig(networkName) {
+    return NETWORK_CONFIGS[networkName];
+  }
+}
+
+// 导出所有函数供外部使用
+export {
+  checkMetaMask,
+  connectMetaMask,
+  getCurrentNetwork,
+  switchToNetwork,
+  addNetwork,
+  switchWithRetry,
+  setupNetworkListener,
+  getNetworkName,
+  MetaMaskNetworkSwitcher,
+  NETWORK_CONFIGS,
+};
+
+// 使用示例
+/*
+// 创建实例
+const networkSwitcher = new MetaMaskNetworkSwitcher();
+
+// 连接 MetaMask
+await networkSwitcher.connect();
+
+// 切换到不同网络
+await networkSwitcher.switchTo('polygon');      // 切换到 Polygon
+await networkSwitcher.switchTo('bsc');          // 切换到 BSC
+await networkSwitcher.switchTo('arbitrum');     // 切换到 Arbitrum
+await networkSwitcher.switchTo('optimism');     // 切换到 Optimism
+
+// 或者直接使用函数
+await switchToNetwork('ethereum');              // 切换到以太坊主网
+await switchToNetwork('sepolia');               // 切换到测试网
+
+// 带重试的切换
+await switchWithRetry('polygon', 3);            // 最多重试 3 次
+*/

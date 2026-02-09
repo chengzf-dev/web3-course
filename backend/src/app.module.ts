@@ -6,6 +6,7 @@ import { ProgressModule } from "./progress/progress.module";
 import { CertificatesModule } from "./certificates/certificates.module";
 import { AdminModule } from "./admin/admin.module";
 import { HooksModule } from "./hooks/hooks.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { HooksModule } from "./hooks/hooks.module";
     SwapModule,
     ProgressModule,
     CertificatesModule,
+    AuthModule,
     AdminModule,
     HooksModule
   ]

@@ -3,7 +3,9 @@ import {
   Controller,
   ForbiddenException,
   Get,
+  Headers,
   Param,
+  Patch,
   Post,
   Query
 } from "@nestjs/common";
@@ -15,14 +17,19 @@ import {
   CourseResponse,
   CreateCourseDto,
   CreateCourseResponse,
+  UpdateCourseDto,
   OwnershipResponse
 } from "./dto";
 import { CoursesService } from "./courses.service";
+import { AuthService } from "../auth/auth.service";
 
 @ApiTags("courses")
 @Controller()
 export class CoursesController {
-  constructor(private readonly coursesService: CoursesService) {}
+  constructor(
+    private readonly coursesService: CoursesService,
+    private readonly authService: AuthService
+  ) {}
 
   @Get("/courses")
   @ApiQuery({ name: "owned", required: false })
@@ -38,6 +45,60 @@ export class CoursesController {
   @Post("/courses")
   async createCourse(@Body() dto: CreateCourseDto): Promise<CreateCourseResponse> {
     return this.coursesService.createCourse(dto);
+  }
+
+  @Patch("/courses/:id")
+  async updateCourse(
+    @Param("id") id: string,
+    @Body() dto: UpdateCourseDto,
+    @Headers("authorization") authorization?: string
+  ): Promise<CourseDetailResponse> {
+    const payload = this.authService.verifyTokenFromHeader(authorization);
+    if (payload.status !== "ACTIVE") {
+      throw new ForbiddenException("User is not active");
+    }
+    const course = await this.coursesService.getCourse(id);
+    const isAuthor = payload.sub.toLowerCase() === course.authorAddress.toLowerCase();
+    if (!isAuthor && payload.role !== "ADMIN") {
+      throw new ForbiddenException("Not course author");
+    }
+    return this.coursesService.updateCourse(id, dto);
+  }
+
+  @Post("/courses/:id/unpublish")
+  async unpublishCourse(
+    @Param("id") id: string,
+    @Headers("authorization") authorization?: string
+  ): Promise<{ ok: boolean }> {
+    const payload = this.authService.verifyTokenFromHeader(authorization);
+    if (payload.status !== "ACTIVE") {
+      throw new ForbiddenException("User is not active");
+    }
+    const course = await this.coursesService.getCourse(id);
+    const isAuthor = payload.sub.toLowerCase() === course.authorAddress.toLowerCase();
+    if (!isAuthor && payload.role !== "ADMIN") {
+      throw new ForbiddenException("Not course author");
+    }
+    await this.coursesService.unpublishCourse(id);
+    return { ok: true };
+  }
+
+  @Post("/courses/:id/request-publish")
+  async requestPublish(
+    @Param("id") id: string,
+    @Headers("authorization") authorization?: string
+  ): Promise<{ ok: boolean }> {
+    const payload = this.authService.verifyTokenFromHeader(authorization);
+    if (payload.status !== "ACTIVE") {
+      throw new ForbiddenException("User is not active");
+    }
+    const course = await this.coursesService.getCourse(id);
+    const isAuthor = payload.sub.toLowerCase() === course.authorAddress.toLowerCase();
+    if (!isAuthor && payload.role !== "ADMIN") {
+      throw new ForbiddenException("Not course author");
+    }
+    await this.coursesService.requestPublishCourse(id);
+    return { ok: true };
   }
 
   @Get("/courses/:id/ownership")

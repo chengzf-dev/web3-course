@@ -28,6 +28,28 @@ export class CreateCourseDto {
   authorAddress!: string;
 }
 
+export class UpdateCourseDto {
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  title?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  content?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  priceYd?: string;
+}
+
 export class CourseResponse {
   id!: string;
   title!: string;

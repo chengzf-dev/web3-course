@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import type { Certificate } from "@prisma/client";
 import {
   CertificateQuery,
   CertificateResponse,
@@ -16,7 +17,7 @@ export class CertificatesController {
   @Get("/certificates")
   async listCertificates(@Query() query: CertificateQuery): Promise<CertificateResponse[]> {
     const certificates = await this.certificatesService.listByAddress(query.address);
-    return certificates.map((certificate) => ({
+    return certificates.map((certificate: Certificate) => ({
       courseId: certificate.courseId,
       tokenId: certificate.tokenId,
       txHash: certificate.txHash

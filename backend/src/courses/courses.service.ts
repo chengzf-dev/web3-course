@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import type { Course, Prisma } from "@prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
-import { CreateCourseDto } from "./dto";
+import { CreateCourseDto, UpdateCourseDto } from "./dto";
 
 @Injectable()
 export class CoursesService {
@@ -12,7 +13,7 @@ export class CoursesService {
     });
 
     if (!ownerAddress) {
-      return courses.map((course) => ({
+      return courses.map((course: Course) => ({
         id: course.id,
         title: course.title,
         description: course.description,
@@ -26,9 +27,10 @@ export class CoursesService {
       where: { buyerAddress: ownerAddress },
       select: { courseId: true }
     });
-    const ownedSet = new Set(purchases.map((purchase) => purchase.courseId));
+    type PurchaseRow = Prisma.PurchaseGetPayload<{ select: { courseId: true } }>;
+    const ownedSet = new Set(purchases.map((purchase: PurchaseRow) => purchase.courseId));
 
-    return courses.map((course) => ({
+    return courses.map((course: Course) => ({
       id: course.id,
       title: course.title,
       description: course.description,
@@ -44,6 +46,62 @@ export class CoursesService {
     if (!course) {
       throw new NotFoundException("Course not found");
     }
+
+    return {
+      id: course.id,
+      title: course.title,
+      description: course.description,
+      priceYd: course.priceYd,
+      authorAddress: course.authorAddress,
+      status: course.status,
+      content: course.content
+    };
+  }
+
+  async updateCourse(id: string, dto: UpdateCourseDto) {
+    const course = await this.prisma.course.update({
+      where: { id },
+      data: {
+        ...(dto.title !== undefined ? { title: dto.title } : {}),
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
+        ...(dto.content !== undefined ? { content: dto.content } : {}),
+        ...(dto.priceYd !== undefined ? { priceYd: dto.priceYd } : {})
+      }
+    });
+
+    return {
+      id: course.id,
+      title: course.title,
+      description: course.description,
+      priceYd: course.priceYd,
+      authorAddress: course.authorAddress,
+      status: course.status,
+      content: course.content
+    };
+  }
+
+  async unpublishCourse(id: string) {
+    const course = await this.prisma.course.update({
+      where: { id },
+      data: { status: "UNPUBLISHED" }
+    });
+
+    return {
+      id: course.id,
+      title: course.title,
+      description: course.description,
+      priceYd: course.priceYd,
+      authorAddress: course.authorAddress,
+      status: course.status,
+      content: course.content
+    };
+  }
+
+  async requestPublishCourse(id: string) {
+    const course = await this.prisma.course.update({
+      where: { id },
+      data: { status: "DRAFT" }
+    });
 
     return {
       id: course.id,

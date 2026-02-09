@@ -2,9 +2,35 @@
   "name": "web3-course",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
+  "packageManager": "pnpm@9.12.3",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "contracts"
+  ],
   "scripts": {
+    "dev": "turbo run dev --parallel",
+    "dev:frontend": "turbo run dev --filter=frontend",
+    "dev:backend": "turbo run start:dev --filter=backend",
+    "dev:contracts": "turbo run node --filter=contracts",
+    "dev:contracts:with-deploy": "turbo run dev:with-deploy --filter=contracts",
+    "build": "turbo run build",
+    "build:frontend": "turbo run build --filter=frontend",
+    "build:backend": "turbo run build --filter=backend",
+    "lint": "turbo run lint",
+    "lint:frontend": "turbo run lint --filter=frontend",
+    "lint:backend": "turbo run lint --filter=backend",
+    "contracts:compile": "turbo run compile --filter=contracts",
+    "contracts:deploy:local": "turbo run deploy:local --filter=contracts",
+    "contracts:deploy:sepolia": "turbo run deploy:sepolia --filter=contracts",
+    "contracts:export:abi:local": "turbo run export:abi:local --filter=contracts",
+    "contracts:export:abi:sepolia": "turbo run export:abi:sepolia --filter=contracts",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "turbo": "^2.1.1"
   },
   "repository": {
     "type": "git",
