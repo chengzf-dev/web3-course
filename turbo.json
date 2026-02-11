@@ -13,14 +13,20 @@
       "cache": false,
       "persistent": true
     },
+    "dev:with-deploy": {
+      "cache": false,
+      "persistent": true
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": [
-        "frontend/.next/**",
-        "backend/dist/**",
-        "contracts/artifacts/**",
-        "contracts/cache/**",
-        "contracts/typechain-types/**"
+        "packages/ui/dist/**",
+        "packages/lib/dist/**",
+        "apps/frontend/.next/**",
+        "apps/backend/dist/**",
+        "apps/contracts/artifacts/**",
+        "apps/contracts/cache/**",
+        "apps/contracts/typechain-types/**"
       ]
     },
     "lint": {
@@ -28,9 +34,9 @@
     },
     "compile": {
       "outputs": [
-        "contracts/artifacts/**",
-        "contracts/cache/**",
-        "contracts/typechain-types/**"
+        "apps/contracts/artifacts/**",
+        "apps/contracts/cache/**",
+        "apps/contracts/typechain-types/**"
       ]
     },
     "deploy:local": {

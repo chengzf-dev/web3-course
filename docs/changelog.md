@@ -13,15 +13,15 @@
 
 ### Fixes Applied
 - Made staking CTA navigable with route link:
-  - `/Users/zane/yd/web3-course/frontend/app/page.tsx`
+  - `/Users/zane/yd/web3-course/apps/frontend/app/page.tsx`
 - Added full local verification script for core onchain flows:
-  - `/Users/zane/yd/web3-course/contracts/scripts/verify-local-full.ts`
+  - `/Users/zane/yd/web3-course/apps/contracts/scripts/verify-local-full.ts`
   - Added npm script:
-  - `/Users/zane/yd/web3-course/contracts/package.json` (`verify:local:full`)
+  - `/Users/zane/yd/web3-course/apps/contracts/package.json` (`verify:local:full`)
 - Tightened contract address typing for frontend contract bindings:
-  - `/Users/zane/yd/web3-course/frontend/lib/contracts.ts`
+  - `/Users/zane/yd/web3-course/packages/lib/src/contracts.ts`
 - Added exchange withdraw events to improve observability/history:
-  - `/Users/zane/yd/web3-course/contracts/contracts/Exchange.sol`
+  - `/Users/zane/yd/web3-course/apps/contracts/contracts/Exchange.sol`
 
 ### Automated Verification
 - Executed local deployment/export/seed:

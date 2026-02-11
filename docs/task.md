@@ -140,51 +140,39 @@ web3-university/
 ├─ README.md
 ├─ .gitignore
 │
-├─ web/                        # 前端 Next.js 应用
-│  ├─ app/
-│  │  ├─ page.tsx             # 课程列表
-│  │  ├─ course/[id]/page.tsx # 课程详情
-│  │  ├─ author/new/page.tsx  # 创建课程
-│  │  ├─ exchange/page.tsx    # ETH ↔ YD 兑换
-│  │  └─ layout.tsx
-│  ├─ components/
-│  │  ├─ wallet-connect.tsx
-│  │  ├─ course-card.tsx
-│  │  ├─ buy-button.tsx
-│  │  └─ swap-form.tsx
-│  ├─ lib/
-│  │  ├─ wagmi.ts             # wagmi/viem 配置
-│  │  ├─ contracts.ts         # 合约地址/ABI 读取（来自 contracts/exports）
-│  │  └─ storage.ts           # localStorage 读写封装
-│  ├─ data/
-│  │  └─ courses.seed.json    # 课程元数据种子
-│  ├─ types/                  # 前端局部类型（或从 shared 引用）
-│  ├─ public/
-│  ├─ next.config.ts
-│  ├─ tsconfig.json
-│  ├─ .env.local.example      # NEXT_PUBLIC_CHAIN_ID / RPC / 合约地址
-│  └─ package.json
+├─ apps/
+│  ├─ frontend/                # 前端 Next.js 应用
+│  │  ├─ app/
+│  │  │  ├─ page.tsx           # 课程列表
+│  │  │  ├─ course/[id]/page.tsx # 课程详情
+│  │  │  ├─ author/new/page.tsx  # 创建课程
+│  │  │  ├─ exchange/page.tsx    # ETH ↔ YD 兑换
+│  │  │  └─ layout.tsx
+│  │  ├─ data/
+│  │  │  └─ courses.seed.json    # 课程元数据种子
+│  │  ├─ public/
+│  │  ├─ next.config.ts
+│  │  ├─ tsconfig.json
+│  │  ├─ .env.local.example      # NEXT_PUBLIC_CHAIN_ID / RPC / 合约地址
+│  │  └─ package.json
+│  ├─ backend/                 # NestJS 后端
+│  └─ contracts/               # Hardhat 合约与部署
+│     ├─ contracts/
+│     │  ├─ YDToken.sol         # ERC20(YD)
+│     │  ├─ Courses.sol         # 课程创建/购买/手续费
+│     │  └─ MockSwap.sol        # 固定汇率 ETH ↔ YD
+│     ├─ scripts/
+│     │  ├─ deploy.ts           # 部署合约并初始化
+│     │  └─ export-abi.ts       # 导出 ABI+地址 到 exports/
+│     ├─ exports/
+│     │  └─ <chainId>.json      # { addresses, abis } 供前端/后端引用
+│     ├─ hardhat.config.ts
+│     ├─ package.json
+│     └─ test/
 │
-├─ contracts/                  # Hardhat 合约与部署
-│  ├─ contracts/
-│  │  ├─ YDToken.sol          # ERC20(YD)
-│  │  ├─ Courses.sol          # 课程创建/购买/手续费
-│  │  └─ MockSwap.sol         # 固定汇率 ETH ↔ YD
-│  ├─ scripts/
-│  │  ├─ deploy.ts            # 部署合约并初始化
-│  │  └─ export-abi.ts        # 导出 ABI+地址 到 exports/
-│  ├─ exports/
-│  │  └─ <chainId>.json       # { addresses, abis } 供 web 引用
-│  ├─ hardhat.config.ts
-│  ├─ package.json
-│  └─ test/
-│
-├─ shared/                     # 前后端共用类型/常量/工具
-│  ├─ src/
-│  │  ├─ types/course.ts
-│  │  ├─ constants/fees.ts    # 平台手续费 bps
-│  │  └─ utils/pricing.ts     # 汇率与格式化
-│  └─ package.json
+├─ packages/
+│  ├─ ui/                      # UI 组件库
+│  ├─ lib/                     # 非 UI 业务/链上工具库
 │
 └─ subgraph/                   # 可选：The Graph 子图
    ├─ schema.graphql
@@ -197,7 +185,7 @@ web3-university/
 
 ## 7. 选修功能：AAVE 质押实施方案（草案）
 
-目标：为课程作者提供将资产（优先 ETH，其次 USDT）存入 AAVE V3 获得利息的能力，支持存入、提取、余额与收益展示，最小改动接入现有代码结构（contracts/exports 提供 ABI+地址，web 直接读写）。
+目标：为课程作者提供将资产（优先 ETH，其次 USDT）存入 AAVE V3 获得利息的能力，支持存入、提取、余额与收益展示，最小改动接入现有代码结构（apps/contracts/exports 提供 ABI+地址，前端直接读写）。
 
 ### 7.1 方案选型
 
@@ -227,10 +215,10 @@ web3-university/
   - `withdraw(address asset, uint256 amount)`
   - 使用 `ReentrancyGuard` + `SafeERC20`，清零式授权
 - 部署脚本：
-  - 不部署 AAVE 合约本体，只在 `contracts/exports/<chainId>.json` 中维护 AAVE 相关地址
+  - 不部署 AAVE 合约本体，只在 `apps/contracts/exports/<chainId>.json` 中维护 AAVE 相关地址
   - 若使用 Adapter，则部署 Adapter 并一并导出地址
 - `export-abi`：
-  - 导出 `IPool`, `IWETHGateway`,（可选 `AaveAdapter`） ABI 到 `contracts/exports`，供 `web/lib/contracts.ts` 使用
+  - 导出 `IPool`, `IWETHGateway`,（可选 `AaveAdapter`） ABI 到 `apps/contracts/exports`，供 `packages/lib/src/contracts.ts` 使用
 
 ### 7.4 前端页面与交互
 
@@ -247,16 +235,16 @@ web3-university/
     - USDT：`Pool.withdraw(USDT, amount, to=user)`
   - 交易状态：沿用 `useTxStatus`，提示网络不匹配、余额不足、授权缺失
 - 配置：
-  - 在 `web/.env.local` 增加
+  - 在 `apps/frontend/.env.local` 增加
     - `NEXT_PUBLIC_AAVE_POOL`、`NEXT_PUBLIC_WETH_GATEWAY`
     - `NEXT_PUBLIC_WETH`、`NEXT_PUBLIC_AWETH`
     - （二期）`NEXT_PUBLIC_USDT`、`NEXT_PUBLIC_AUSDT`
-  - `web/lib/contracts.ts` 读取 `contracts/exports/<chainId>.json` 中的地址（保持与现有模式一致）
+  - `packages/lib/src/contracts.ts` 读取 `apps/contracts/exports/<chainId>.json` 中的地址（保持与现有模式一致）
 
 ### 7.5 本地与测试
 
 - Mainnet fork（推荐）：
-  - 在 `contracts/hardhat.config.ts` 增加 forking 配置（需 Alchemy/Infura KEY）
+  - 在 `apps/contracts/hardhat.config.ts` 增加 forking 配置（需 Alchemy/Infura KEY）
   - Hardhat 任务：`pnpm --filter @web3-university/contracts hardhat node --network hardhat`
 - 纯本地（无 fork）：
   - 新增 `MockAavePool` 与 `MockAToken`，在 `deploy.ts` 中一并部署并导出地址供前端连通性验证
@@ -270,7 +258,7 @@ web3-university/
   - 能输入金额并成功存入（交易成功，aWETH 余额增加）
   - 能成功提取（aWETH 余额减少，ETH 余额增加）
   - 异常提示友好：余额不足、网络不匹配、未连接钱包、金额无效
-- 配置清晰：不同网络地址来自 `contracts/exports/<chainId>.json` 或 `.env.local`
+- 配置清晰：不同网络地址来自 `apps/contracts/exports/<chainId>.json` 或 `.env.local`
 - 不引入 Breaking Change：课程创建/购买、兑换流程不受影响
 
 ### 7.7 风险与注意事项

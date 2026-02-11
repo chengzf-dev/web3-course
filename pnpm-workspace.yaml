@@ -1,4 +1,5 @@
 packages:
-  - 'frontend'
-  - 'backend'
-  - 'contracts'
+  - 'apps/frontend'
+  - 'apps/backend'
+  - 'apps/contracts'
+  - 'packages/*'
